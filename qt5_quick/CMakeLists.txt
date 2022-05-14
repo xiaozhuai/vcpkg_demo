@@ -10,7 +10,7 @@ endif ()
 set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_CMAKE_TOOLCHAIN_FILE}" CACHE STRING "vcpkg toolchain file")
 
 project(
-        vcpkg_demo_qt5
+        vcpkg_demo_qt5_quick
         VERSION 0.1
         DESCRIPTION "A demo project with vcpkg and qt5"
         LANGUAGES CXX
@@ -31,7 +31,7 @@ add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
 find_package(Qt5 COMPONENTS Core Quick QuickControls2 QmlImportScanner REQUIRED)
 
 file(GLOB_RECURSE PROJECT_SOURCES src/*.cpp src/*.hpp src/*.c src/*.h src/*.qrc)
-add_executable(${PROJECT_NAME} ${PROJECT_SOURCES} src/AngleHelper.h src/AngleHelper.cpp)
+add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Core Qt5::Quick Qt5::QuickControls2)

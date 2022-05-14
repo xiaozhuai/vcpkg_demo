@@ -12,4 +12,5 @@ set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_CMAKE_TOOLCHAIN_FILE}" CACHE STRING "vcpkg 
 project(vcpkg_demo)
 
 add_subdirectory(opencv)
-add_subdirectory(qt5)
+add_subdirectory(qt5_quick)
+add_subdirectory(qt5_widgets)
