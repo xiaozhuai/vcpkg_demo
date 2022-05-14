@@ -4,7 +4,7 @@
 int main() {
     cv::utils::logging::setLogLevel(cv::utils::logging::LOG_LEVEL_WARNING);
     auto image = cv::imread("assets/test.jpg");
-    cv::imshow("Image", image);
+    cv::imshow("vcpkg_demo_opencv", image);
     cv::waitKey(0);
     return 0;
 }

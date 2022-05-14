@@ -48,7 +48,7 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "MinSizeRel")
     set_target_properties(
             ${PROJECT_NAME} PROPERTIES
             MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
-#            WIN32_EXECUTABLE TRUE
+            # WIN32_EXECUTABLE TRUE
     )
 endif ()
 

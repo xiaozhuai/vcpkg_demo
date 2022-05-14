@@ -9,17 +9,20 @@ else ()
 endif ()
 set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_CMAKE_TOOLCHAIN_FILE}" CACHE STRING "vcpkg toolchain file")
 
-project(vcpkg_demo_opencv)
+project(vcpkg_demo_skia)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+find_package(skia REQUIRED)
+find_package(PNG REQUIRED)
+find_package(JPEG REQUIRED)
+find_package(WebP REQUIRED)
+find_package(ZLIB REQUIRED)
 
 # msvc 支持使用无bom头的utf-8编码的源码
 add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
 add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
-
-find_package(OpenCV REQUIRED)
-include_directories(${OpenCV_INCLUDE_DIRS})
 
 file(GLOB_RECURSE PROJECT_SOURCES src/*.cpp src/*.hpp src/*.c src/*.h)
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
@@ -32,4 +35,12 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "MinSizeRel")
     )
 endif ()
 
-target_link_libraries(${PROJECT_NAME} PRIVATE ${OpenCV_LIBS})
+target_link_libraries(
+        ${PROJECT_NAME} PRIVATE
+        skia::skia
+        PNG::PNG
+        ${JPEG_LIBRARIES}
+        WebP::webp WebP::webpdemux WebP::libwebpmux WebP::webpdecoder
+        ZLIB::ZLIB
+        minifb
+)
