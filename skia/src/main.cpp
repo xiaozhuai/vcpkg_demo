@@ -48,7 +48,7 @@ void draw(SkCanvas *canvas, int width, int height, const sk_sp<SkImage> &image) 
 sk_sp<SkSurface> createSurface(int width, int height, uint8_t *framebuffer) {
     SkImageInfo info = SkImageInfo::MakeN32Premul(width, height);
     size_t rowBytes = info.minRowBytes();
-    assert(info.computeMinByteSize() == imageSize);
+    assert(info.computeMinByteSize() == width * height * 4);
     sk_sp<SkSurface> surface = SkSurface::MakeRasterDirect(info, framebuffer, rowBytes);
     return surface;
 }
@@ -56,11 +56,10 @@ sk_sp<SkSurface> createSurface(int width, int height, uint8_t *framebuffer) {
 int main() {
     constexpr int width = 960;
     constexpr int height = 540;
-    constexpr int framebufferSize = width * height * 4;
 
     auto image = loadSkImageFromFile("assets/test.jpg");
 
-    std::vector<uint8_t> framebuffer(framebufferSize);
+    std::vector<uint8_t> framebuffer(width * height * 4);
     auto surface = createSurface(width, height, framebuffer.data());
     auto canvas = surface->getCanvas();
 
