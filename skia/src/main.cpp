@@ -16,8 +16,10 @@ sk_sp<SkImage> loadSkImageFromFile(const std::string &file) {
 }
 
 void draw(SkCanvas *canvas, int width, int height, const sk_sp<SkImage> &image) {
+    // clear
     canvas->clear(SK_ColorWHITE);
 
+    // image
     SkSamplingOptions samplingOptions(SkFilterMode::kNearest, SkMipmapMode::kNone);
     canvas->drawImageRect(
             image,
@@ -25,6 +27,7 @@ void draw(SkCanvas *canvas, int width, int height, const sk_sp<SkImage> &image) 
             samplingOptions
     );
 
+    // star
     const SkScalar R = 0.45f * float(width < height ? width : height);
     const SkScalar TAU = 6.2831853f;
     const int N = 8;
@@ -35,11 +38,9 @@ void draw(SkCanvas *canvas, int width, int height, const sk_sp<SkImage> &image) 
         path.lineTo(R * cos(theta), R * sin(theta));
     }
     path.close();
-
     SkPaint paint;
     paint.setAntiAlias(true);
     paint.setColor4f({1.0f, 0.0f, 0.0f, 0.5f});
-
     canvas->translate(0.5f * float(width), 0.5f * float(height));
     canvas->drawPath(path, paint);
     canvas->translate(-0.5f * float(width), -0.5f * float(height));
@@ -54,8 +55,15 @@ sk_sp<SkSurface> createSurface(int width, int height, uint8_t *framebuffer) {
 }
 
 int main() {
-    constexpr int width = 960;
-    constexpr int height = 540;
+    const int windowWidth = 960;
+    const int windowHeight = 540;
+    auto *window = mfb_open_ex("vcpkg_demo_skia", windowWidth, windowHeight, 0);
+
+    float scaleX, scaleY;
+    mfb_get_monitor_scale(window, &scaleX, &scaleY);
+
+    const int width = (int) floor(float(windowWidth) * scaleX);
+    const int height = (int) floor(float(windowHeight) * scaleY);
 
     auto image = loadSkImageFromFile("assets/test.jpg");
 
@@ -63,7 +71,6 @@ int main() {
     auto surface = createSurface(width, height, framebuffer.data());
     auto canvas = surface->getCanvas();
 
-    auto *window = mfb_open_ex("vcpkg_demo_skia", width, height, 0);
     do {
         draw(canvas, width, height, image);
         int state = mfb_update_ex(window, framebuffer.data(), width, height);
