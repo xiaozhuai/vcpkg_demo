@@ -1,0 +1,26 @@
+# 设置triplet和toolchain，必须放在project之前include
+# set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+# include(vcpkg_toolchain)
+
+if (WIN32)
+    if ("${CMAKE_BUILD_TYPE}" STREQUAL "MinSizeRel")
+        set(VCPKG_TARGET_TRIPLET x64-windows-static-mt-release)
+    else ()
+        set(VCPKG_TARGET_TRIPLET x64-windows)
+    endif ()
+elseif (APPLE)
+    #    set(CMAKE_OSX_DEPLOYMENT_TARGET 10.15)
+    if ("${CMAKE_BUILD_TYPE}" STREQUAL "MinSizeRel")
+        set(VCPKG_TARGET_TRIPLET x64-osx)
+    else ()
+        set(VCPKG_TARGET_TRIPLET x64-osx-dynamic)
+    endif ()
+else ()
+    message(FATAL_ERROR "Unsupport ${CMAKE_SYSTEM_NAME}")
+endif ()
+
+if ("$ENV{VCPKG_CMAKE_TOOLCHAIN_FILE}" STREQUAL "")
+    message(FATAL_ERROR "Env VCPKG_CMAKE_TOOLCHAIN_FILE not set")
+endif ()
+
+set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_CMAKE_TOOLCHAIN_FILE}" CACHE STRING "vcpkg toolchain file")
