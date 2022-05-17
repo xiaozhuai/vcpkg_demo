@@ -10,6 +10,8 @@ MainWindow::MainWindow(QWidget *parent)
     QPixmap pixmap;
     pixmap.load(QStringLiteral(":/test.jpg"));
     ui->label->setPixmap(pixmap);
+    ui->label->setScaledContents(true);
+    ui->label->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
 }
 
 MainWindow::~MainWindow() {
