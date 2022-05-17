@@ -73,6 +73,11 @@ int main() {
 
     do {
         draw(canvas, width, height, image);
+#ifdef __APPLE__
+        for (int i = 0; i < width * height; ++i) {
+            std::swap(framebuffer[i * 4], framebuffer[i * 4 + 2]);
+        }
+#endif
         int state = mfb_update_ex(window, framebuffer.data(), width, height);
 
         if (state < 0) {
