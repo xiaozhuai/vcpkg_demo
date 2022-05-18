@@ -5,7 +5,7 @@ include(vcpkg_toolchain)
 
 project(vcpkg_demo)
 
-add_subdirectory(minifb)
+add_subdirectory(vendor/minifb)
 add_subdirectory(opencv)
 if (WIN32)
     add_subdirectory(qt5_quick)
