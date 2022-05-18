@@ -16,7 +16,7 @@ elseif (APPLE)
         set(VCPKG_TARGET_TRIPLET x64-osx-catalina)
     endif ()
 else ()
-    message(FATAL_ERROR "Unsupport ${CMAKE_SYSTEM_NAME}")
+    message(FATAL_ERROR "Unsupported ${CMAKE_SYSTEM_NAME}")
 endif ()
 
 if ("$ENV{VCPKG_CMAKE_TOOLCHAIN_FILE}" STREQUAL "")
