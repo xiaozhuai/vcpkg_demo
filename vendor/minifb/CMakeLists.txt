@@ -161,12 +161,6 @@ endif()
 add_library(minifb STATIC
     ${SrcLib}
 )
-if ("${CMAKE_BUILD_TYPE}" STREQUAL "MinSizeRel")
-    set_target_properties(
-            minifb PROPERTIES
-            MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
-    )
-endif ()
 
 # Link
 #--------------------------------------

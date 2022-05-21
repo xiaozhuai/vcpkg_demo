@@ -16,10 +16,6 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# msvc 支持使用无bom头的utf-8编码的源码
-add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
-add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
-
 find_package(Qt5 COMPONENTS Core Quick QuickControls2 QmlImportScanner REQUIRED)
 
 file(GLOB_RECURSE PROJECT_SOURCES src/*.cpp src/*.hpp src/*.c src/*.h src/*.qrc)
@@ -34,14 +30,7 @@ set_target_properties(
         MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
         MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
         MACOSX_BUNDLE TRUE
+        # WIN32_EXECUTABLE TRUE
 )
-
-if ("${CMAKE_BUILD_TYPE}" STREQUAL "MinSizeRel")
-    set_target_properties(
-            ${PROJECT_NAME} PROPERTIES
-            MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
-            # WIN32_EXECUTABLE TRUE
-    )
-endif ()
 
 qt5_import_qml_plugins(${PROJECT_NAME})

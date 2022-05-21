@@ -17,20 +17,8 @@ find_package(freetype CONFIG REQUIRED)
 find_package(PNG REQUIRED)
 find_package(ZLIB REQUIRED)
 
-# msvc 支持使用无bom头的utf-8编码的源码
-add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
-add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
-
 file(GLOB_RECURSE PROJECT_SOURCES src/*.cpp src/*.hpp src/*.c src/*.h)
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
-
-if ("${CMAKE_BUILD_TYPE}" STREQUAL "MinSizeRel")
-    set_target_properties(
-            ${PROJECT_NAME} PROPERTIES
-            MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
-            # WIN32_EXECUTABLE TRUE
-    )
-endif ()
 
 target_link_libraries(
         ${PROJECT_NAME} PRIVATE
