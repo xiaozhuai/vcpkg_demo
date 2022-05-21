@@ -19,9 +19,17 @@ if (WIN32)
         set(VCPKG_TARGET_TRIPLET x64-windows)
     endif ()
 elseif (APPLE)
+    set(CMAKE_C_FLAGS_DEBUG "-g")
+    set(CMAKE_CXX_FLAGS_DEBUG "-g")
+    set(CMAKE_C_FLAGS_RELEASE "-O3 -DNDEBUG")
+    set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
+    set(CMAKE_C_FLAGS_MINSIZEREL "-O3 -DNDEBUG")
+    set(CMAKE_CXX_FLAGS_MINSIZEREL "-O3 -DNDEBUG")
+    set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g -DNDEBUG")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -DNDEBUG")
+
     set(CMAKE_OSX_DEPLOYMENT_TARGET 10.15)
     if (IS_STATIC_RELEASE)
-        add_compile_options(-O2)
         set(VCPKG_TARGET_TRIPLET x64-osx-catalina-static-release)
     else ()
         set(VCPKG_TARGET_TRIPLET x64-osx-catalina)
@@ -29,6 +37,21 @@ elseif (APPLE)
 else ()
     message(FATAL_ERROR "Unsupported ${CMAKE_SYSTEM_NAME}")
 endif ()
+
+set(CompilerFlags
+        CMAKE_CXX_FLAGS
+        CMAKE_CXX_FLAGS_DEBUG
+        CMAKE_CXX_FLAGS_RELEASE
+        CMAKE_CXX_FLAGS_MINSIZEREL
+        CMAKE_CXX_FLAGS_RELWITHDEBINFO
+        CMAKE_C_FLAGS
+        CMAKE_C_FLAGS_DEBUG
+        CMAKE_C_FLAGS_RELEASE
+        CMAKE_C_FLAGS_MINSIZEREL
+        CMAKE_C_FLAGS_RELWITHDEBINFO)
+foreach (CompilerFlag ${CompilerFlags})
+    message(STATUS "Flags: ${CompilerFlag}: ${${CompilerFlag}}")
+endforeach ()
 
 if ("$ENV{VCPKG_CMAKE_TOOLCHAIN_FILE}" STREQUAL "")
     message(FATAL_ERROR "Env VCPKG_CMAKE_TOOLCHAIN_FILE not set")
