@@ -12,13 +12,25 @@ if (WIN32)
     # msvc 支持使用无bom头的utf-8编码的源码
     add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
     add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
+    # 设置flags
+    set(CMAKE_C_FLAGS_DEBUG "/Zi /Ob0 /Od /RTC1")
+    set(CMAKE_CXX_FLAGS_DEBUG "/Zi /Ob0 /Od /RTC1")
+    set(CMAKE_C_FLAGS_RELEASE "/O2 /Ob2 /DNDEBUG")
+    set(CMAKE_CXX_FLAGS_RELEASE "/O2 /Ob2 /DNDEBUG")
+    set(CMAKE_C_FLAGS_MINSIZEREL "/O2 /Ob2 /DNDEBUG")
+    set(CMAKE_CXX_FLAGS_MINSIZEREL "/O2 /Ob2 /DNDEBUG")
+    set(CMAKE_C_FLAGS_RELWITHDEBINFO "/Zi /O2 /Ob1 /DNDEBUG")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Zi /O2 /Ob1 /DNDEBUG")
+    # 设置triplet
     if (IS_STATIC_RELEASE)
-        add_compile_options(/O2 /Ob2 /MT)
+        # 链接静态运行时库
+        add_compile_options(/MT)
         set(VCPKG_TARGET_TRIPLET x64-windows-static-mt-release)
     else ()
         set(VCPKG_TARGET_TRIPLET x64-windows)
     endif ()
 elseif (APPLE)
+    # 设置flags
     set(CMAKE_C_FLAGS_DEBUG "-g")
     set(CMAKE_CXX_FLAGS_DEBUG "-g")
     set(CMAKE_C_FLAGS_RELEASE "-O3 -DNDEBUG")
@@ -27,8 +39,9 @@ elseif (APPLE)
     set(CMAKE_CXX_FLAGS_MINSIZEREL "-O3 -DNDEBUG")
     set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g -DNDEBUG")
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -DNDEBUG")
-
+    # 设置目标系统版本
     set(CMAKE_OSX_DEPLOYMENT_TARGET 10.15)
+    # 设置triplet
     if (IS_STATIC_RELEASE)
         set(VCPKG_TARGET_TRIPLET x64-osx-catalina-static-release)
     else ()
