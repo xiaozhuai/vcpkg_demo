@@ -6,7 +6,8 @@ project(vcpkg_demo_opengles_angle)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(glfw3 REQUIRED)
+set(GLFW_INSTALL OFF)
+add_subdirectory(glfw)
 find_package(unofficial-angle REQUIRED)
 find_package(ZLIB REQUIRED)
 find_path(STB_INCLUDE_DIRS "stb.h")
@@ -28,7 +29,19 @@ target_link_libraries(
         unofficial::angle::libGLESv2
         unofficial::angle::angle_common
         ZLIB::ZLIB
-        glfw
+)
+
+target_link_libraries(
+        glfw PRIVATE
+        unofficial::angle::libEGL
+        unofficial::angle::libANGLE
+        unofficial::angle::libGLESv2
+        unofficial::angle::angle_common
+        ZLIB::ZLIB
+)
+target_compile_definitions(
+        glfw PRIVATE
+        LINK_LIBEGL
 )
 
 if (APPLE)
