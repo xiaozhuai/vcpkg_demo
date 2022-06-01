@@ -2,6 +2,8 @@
 # set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 # include(vcpkg_toolchain)
 
+cmake_minimum_required(VERSION 3.15)
+
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "MinSizeRel")
     set(IS_STATIC_RELEASE TRUE)
 else ()
