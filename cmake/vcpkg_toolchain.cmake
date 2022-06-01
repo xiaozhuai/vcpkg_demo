@@ -24,7 +24,7 @@ if (WIN32)
     # 设置triplet
     if (IS_STATIC_RELEASE)
         # 链接静态运行时库
-        add_compile_options(/MT)
+        set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded")
         set(VCPKG_TARGET_TRIPLET x64-windows-static-mt-release)
     else ()
         set(VCPKG_TARGET_TRIPLET x64-windows)
