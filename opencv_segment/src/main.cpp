@@ -35,8 +35,8 @@ int main() {
     for (int i = 0; i < hierarchy.size(); i++) {
         cv::Rect rect = cv::boundingRect(contours.at(i));
 
-        // 身份证号位置大于图片的一半，并且宽度是高度的6倍以上
-        if (rect.y > src.rows / 2 && rect.width / rect.height > 6) {
+        // 身份证号位置大于图片的一半，并且宽度是高度的8倍以上
+        if (rect.y > src.rows / 2 && rect.width / rect.height > 8) {
             cv::Mat result = src(rect);
             cv::imshow("idcard_5_result", result);
         }
