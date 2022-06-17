@@ -7,6 +7,7 @@ project(vcpkg_demo)
 
 add_subdirectory(vendor/minifb)
 add_subdirectory(opencv)
+add_subdirectory(opencv_segment)
 if (WIN32)
     add_subdirectory(qt5_quick)
     add_subdirectory(qt5_widgets)
