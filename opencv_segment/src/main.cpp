@@ -15,7 +15,7 @@ int main() {
     cv::GaussianBlur(dst, dst, cv::Size(3, 3), 0);
     cv::imshow("idcard_1_gaussian", dst);
 
-    // 二值化图，主要将灰色部分转成白色，使内容为黑色
+    // 二值化
     cv::threshold(dst, dst, 165, 255, cv::THRESH_BINARY);
     cv::imshow("idcard_2_threshold", dst);
 
@@ -25,7 +25,7 @@ int main() {
 
     // 腐蚀
     cv::Mat kernel = cv::getStructuringElement(cv::MORPH_RECT, cv::Point(9, 9));
-    cv::erode(dst, dst, kernel, cv::Point(-1, -1), 1);
+    cv::erode(dst, dst, kernel);
     cv::imshow("idcard_4_erode", dst);
 
     std::vector<std::vector<cv::Point>> contours;
