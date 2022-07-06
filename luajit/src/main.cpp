@@ -1,9 +1,5 @@
 #include <lua.hpp>
 #include <LuaBridge/LuaBridge.h>
-#include <thread>
-#include <chrono>
-
-using namespace std::chrono_literals;
 
 static lua_State *L;
 
@@ -127,10 +123,6 @@ test2 = nil;
 )");
     }
 
-    while (true) {
-        std::this_thread::sleep_for(1000ms);
-    }
-
-    // lua_close(L);
+    lua_close(L);
     return 0;
 }
