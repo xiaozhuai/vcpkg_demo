@@ -1,4 +1,3 @@
-# 设置到 3.15 以上以支持 MSVC_RUNTIME_LIBRARY PROPERTY
 cmake_minimum_required(VERSION 3.15)
 
 project(vcpkg_demo_opencv)

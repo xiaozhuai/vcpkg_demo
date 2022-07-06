@@ -42,7 +42,7 @@ elseif (APPLE)
     set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g -DNDEBUG")
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -DNDEBUG")
     # 设置目标系统版本
-    set(CMAKE_OSX_DEPLOYMENT_TARGET 10.15)
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15" CACHE STRING "Minimum OS X deployment version")
     # 设置triplet
     if (IS_STATIC_RELEASE)
         set(VCPKG_TARGET_TRIPLET x64-osx-catalina-static-release)
