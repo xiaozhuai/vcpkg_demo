@@ -1,4 +1,3 @@
-# 设置到 3.15 以上以支持 MSVC_RUNTIME_LIBRARY PROPERTY
 cmake_minimum_required(VERSION 3.15)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(vcpkg_toolchain)
@@ -6,6 +5,7 @@ include(vcpkg_toolchain)
 project(vcpkg_demo)
 
 add_subdirectory(vendor/minifb)
+add_subdirectory(vendor/LuaBridge)
 add_subdirectory(opencv)
 add_subdirectory(opencv_segment)
 add_subdirectory(opencv_verification_code)
@@ -18,3 +18,4 @@ add_subdirectory(cairo)
 if (NOT WIN32)
     add_subdirectory(opengles_angle)
 endif ()
+add_subdirectory(luajit)
