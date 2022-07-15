@@ -61,9 +61,9 @@ cairo_surface_t *createSurface(int width, int height, uint8_t *framebuffer = nul
 cairo_surface_t *createSurfaceFromImageFile(const std::string &file) {
     int width, height, channels;
     auto data = stbi_load(file.c_str(), &width, &height, &channels, 4);
+    assert(width != 0 && height != 0 && data != nullptr);
     // RGBA 2 BGRA
     for (int i = 0; i < width * height; ++i) std::swap(data[i * 4], data[i * 4 + 2]);
-    assert(width != 0 && height != 0 && data != nullptr);
     return createSurface(width, height, data);
 }
 
