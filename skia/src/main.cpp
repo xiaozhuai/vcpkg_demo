@@ -10,11 +10,6 @@
 #include <skia/core/SkData.h>
 #include <skia/core/SkImage.h>
 
-sk_sp<SkImage> loadSkImageFromFile(const std::string &file) {
-    sk_sp<SkData> data = SkData::MakeFromFileName(file.c_str());
-    return SkImage::MakeFromEncoded(data);
-}
-
 void draw(SkCanvas *canvas, int width, int height, const sk_sp<SkImage> &image) {
     // clear
     canvas->clear(SK_ColorWHITE);
@@ -46,11 +41,14 @@ void draw(SkCanvas *canvas, int width, int height, const sk_sp<SkImage> &image) 
     canvas->translate(-0.5f * float(width), -0.5f * float(height));
 }
 
-sk_sp<SkSurface> createSurface(int width, int height, uint8_t *framebuffer) {
-    SkImageInfo info = SkImageInfo::MakeN32Premul(width, height);
-    size_t rowBytes = info.minRowBytes();
-    assert(info.computeMinByteSize() == width * height * 4);
-    sk_sp<SkSurface> surface = SkSurface::MakeRasterDirect(info, framebuffer, rowBytes);
+inline sk_sp<SkImage> loadSkImageFromFile(const std::string &file) {
+    return SkImage::MakeFromEncoded(SkData::MakeFromFileName(file.c_str()));
+}
+
+inline sk_sp<SkSurface> createSurface(int width, int height, uint8_t *framebuffer) {
+    // SkImageInfo info = SkImageInfo::MakeN32Premul(width, height);
+    SkImageInfo info = SkImageInfo::MakeN32(width, height, SkAlphaType::kUnpremul_SkAlphaType);
+    sk_sp<SkSurface> surface = SkSurface::MakeRasterDirect(info, framebuffer, width * 4);
     return surface;
 }
 
@@ -62,8 +60,8 @@ int main() {
     float scaleX, scaleY;
     mfb_get_monitor_scale(window, &scaleX, &scaleY);
 
-    const int width = (int) floor(float(windowWidth) * scaleX);
-    const int height = (int) floor(float(windowHeight) * scaleY);
+    const int width = (int) round(float(windowWidth) * scaleX);
+    const int height = (int) round(float(windowHeight) * scaleY);
 
     auto image = loadSkImageFromFile("assets/test.jpg");
 

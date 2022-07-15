@@ -75,8 +75,8 @@ int main() {
     float scaleX, scaleY;
     mfb_get_monitor_scale(window, &scaleX, &scaleY);
 
-    const int width = (int) floor(float(windowWidth) * scaleX);
-    const int height = (int) floor(float(windowHeight) * scaleY);
+    const int width = (int) round(float(windowWidth) * scaleX);
+    const int height = (int) round(float(windowHeight) * scaleY);
 
     auto image = createSurfaceFromImageFile("assets/test.jpg");
 
