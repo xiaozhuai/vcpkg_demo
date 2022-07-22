@@ -65,12 +65,11 @@ int main() {
             .addFunction("cstringFn", &identityCFunction<const char *>)
             .addFunction("stringFn", &identityCFunction<std::string>)
             .beginClass<Test>("Test")
-            .addConstructor < void(*)
-    (int, int) > ()
-            .addProperty("value", &Test::value, true)
-            .addProperty("value2", &Test::value2, true)
-            .addFunction("add", &Test::add)
-            .addStaticFunction("sum", &Test::sum)
+                .addConstructor < void(*)(int, int) > ()
+                .addProperty("value", &Test::value, true)
+                .addProperty("value2", &Test::value2, true)
+                .addFunction("add", &Test::add)
+                .addStaticFunction("sum", &Test::sum)
             .endClass();
 
     {
