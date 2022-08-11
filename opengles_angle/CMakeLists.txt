@@ -9,7 +9,7 @@ set(GLFW_INSTALL OFF)
 add_subdirectory(glfw)
 find_package(unofficial-angle REQUIRED)
 find_package(ZLIB REQUIRED)
-find_path(STB_INCLUDE_DIRS "stb.h")
+find_path(STB_INCLUDE_DIRS "stb_image.h")
 
 file(GLOB_RECURSE PROJECT_SOURCES src/*.cpp src/*.hpp src/*.c src/*.h)
 file(GLOB_RECURSE IMGUI_SOURCES imgui/*.cpp imgui/*.hpp imgui/*.c imgui/*.h)
