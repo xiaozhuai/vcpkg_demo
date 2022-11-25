@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 3.15)
-set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-include(vcpkg_toolchain)
 
 project(vcpkg_demo)
+
+add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
+add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
 
 add_subdirectory(vendor/minifb)
 add_subdirectory(vendor/LuaBridge)
