@@ -1,7 +1,3 @@
-//
-// Created by xiaozhuai on 2022/5/14.
-//
-
 #ifdef _WIN32
 
 #define WIN32_LEAN_AND_MEAN
