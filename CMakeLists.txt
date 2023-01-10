@@ -5,8 +5,21 @@ project(vcpkg_demo)
 add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
 add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
 
+find_path(EGL_INCLUDE_DIR EGL/egl.h PATH_SUFFIXES include)
+find_path(GLES2_INCLUDE_DIR GLES2/gl2.h PATH_SUFFIXES include)
+include_directories("${EGL_INCLUDE_DIR}" "${GLES2_INCLUDE_DIR}")
+
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+set(GLFW_INSTALL OFF CACHE BOOL "" FORCE)
+set(GLFW_LINK_STATIC_ANGLE ON CACHE BOOL "" FORCE)
+
 add_subdirectory(vendor/minifb)
 add_subdirectory(vendor/LuaBridge)
+add_subdirectory(vendor/glfw)
+add_subdirectory(vendor/imgui)
+
 add_subdirectory(opencv)
 add_subdirectory(opencv_segment)
 add_subdirectory(opencv_verification_code)
