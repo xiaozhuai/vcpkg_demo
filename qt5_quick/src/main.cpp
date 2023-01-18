@@ -6,9 +6,14 @@
 #include <QDebug>
 
 int main(int argc, char *argv[]) {
-#ifdef _WIN32
-    if (isAngleAvailable()) {
+#if defined(_WIN32)
+    if (Paths::isAngleAvailable()) {
         QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
+    }
+
+    // Force win7 use d3d9 as angle backend
+    if (QSysInfo::productType() == "windows" && QSysInfo::productVersion() == "7") {
+        qputenv("QT_ANGLE_PLATFORM", "d3d9");
     }
 #endif
 
