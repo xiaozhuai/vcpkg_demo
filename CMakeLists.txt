@@ -21,6 +21,7 @@ add_subdirectory(vendor/glfw)
 add_subdirectory(vendor/imgui)
 
 add_subdirectory(opencv)
+add_subdirectory(opencv_camera)
 add_subdirectory(opencv_scanner)
 add_subdirectory(opencv_segment)
 add_subdirectory(opencv_verification_code)
