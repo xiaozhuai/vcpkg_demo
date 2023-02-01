@@ -1,6 +1,7 @@
 #include "task.h"
 #include <vector>
 #include <chrono>
+#include <algorithm>
 #include <cassert>
 
 int64_t now() {
