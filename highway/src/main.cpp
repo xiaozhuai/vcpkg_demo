@@ -5,9 +5,10 @@
 #include <cassert>
 
 int64_t now() {
-    return std::chrono::duration_cast<std::chrono::microseconds>(
-            std::chrono::high_resolution_clock::now().time_since_epoch()
-    ).count();
+    using clock = std::chrono::high_resolution_clock;
+    using std::chrono::duration_cast;
+    using std::chrono::microseconds;
+    return duration_cast<microseconds>(clock::now().time_since_epoch()).count();
 }
 
 int main() {
