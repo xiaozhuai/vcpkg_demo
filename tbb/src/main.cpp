@@ -62,14 +62,14 @@ int main() {
         t0 = now();
         task(data);
         t1 = now();
-        printf("task spends %lld us\n", t1 - t0);
+        printf("task     : %lld us\n", t1 - t0);
     }
 
     {
         t0 = now();
         task_tbb(data2);
         t1 = now();
-        printf("task_tbb spends %lld us\n", t1 - t0);
+        printf("task_tbb : %lld us\n", t1 - t0);
     }
 
     for (int i = 0; i < data.size(); ++i) {
