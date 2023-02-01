@@ -1,6 +1,7 @@
 #include <oneapi/tbb.h>
 #include <vector>
 #include <chrono>
+#include <cassert>
 
 int64_t now() {
     using clock = std::chrono::high_resolution_clock;
