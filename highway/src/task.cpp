@@ -30,7 +30,7 @@ namespace hn = hwy::HWY_NAMESPACE;
 ////              value = value / a                 ////
 ////////////////////////////////////////////////////////
 template<class D>
-HWY_MAYBE_UNUSED void one_div(const D d, float *HWY_RESTRICT value, float a) {
+void one_div(const D d, float *HWY_RESTRICT value, float a) {
     auto x = hn::Load(d, value);
     x = hn::Div(x, hn::Set(d, a));
     hn::Store(x, d, value);
