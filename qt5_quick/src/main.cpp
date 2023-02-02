@@ -7,7 +7,7 @@
 
 int main(int argc, char *argv[]) {
 #if defined(_WIN32)
-    if (Paths::isAngleAvailable()) {
+    if (isAngleAvailable()) {
         QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
     }
 

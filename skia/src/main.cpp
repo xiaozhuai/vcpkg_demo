@@ -11,9 +11,10 @@
 
 #ifdef _WIN32
 #define _USE_MATH_DEFINES
-#endif
-
+#include <math.h>
+#else
 #include <cmath>
+#endif
 
 void draw(SkCanvas *canvas, int width, int height, const sk_sp<SkImage> &image) {
     // clear
