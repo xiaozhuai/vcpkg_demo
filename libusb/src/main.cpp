@@ -16,7 +16,7 @@ int main() {
     libusb_context *context = nullptr;
     libusb_init(&context);
     ssize_t nDevice = libusb_get_device_list(context, &devices);
-    printf("Found %lld usb devices:\n", nDevice);
+    printf("Found %zd usb devices:\n", nDevice);
     for (int i = 0; i < nDevice; i++) {
         libusb_device *device = devices[i];
         libusb_device_descriptor desc{};
