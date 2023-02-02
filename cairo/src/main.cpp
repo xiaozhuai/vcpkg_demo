@@ -37,12 +37,14 @@ void draw(cairo_t *ctx, int width, int height, cairo_surface_t *image) {
     cairo_save(ctx);
     cairo_set_antialias(ctx, CAIRO_ANTIALIAS_BEST);
     cairo_translate(ctx, 0.5f * double(width), 0.5f * double(height));
-    const float R = 0.45f * float(width < height ? width : height);
-    const float TAU = 6.2831853f;
-    const int N = 8;
-    cairo_move_to(ctx, R, 0.0f);
+    const float R = 0.45f * std::min(float(width), float(height));
+    constexpr int N = 7;
+    static_assert(N >= 5 && N % 2 == 1, "N must be odd and >=5");
+    constexpr auto step = (N - 1) / 2;
+    float theta = -M_PI_2;
+    cairo_move_to(ctx, R * cos(theta), R * sin(theta));
     for (int i = 1; i < N; ++i) {
-        float theta = 3.0f * float(i) * TAU / float(N);
+        theta += float(step) * M_PI * 2.0f / N;
         cairo_line_to(ctx, R * cos(theta), R * sin(theta));
     }
     cairo_translate(ctx, -0.5f * double(width), -0.5f * double(height));
@@ -94,15 +96,15 @@ int main() {
         int state = mfb_update_ex(window, cairo_image_surface_get_data(surface), width, height);
 
         if (state < 0) {
-            window = nullptr;
+            mfb_close(window);
             break;
         }
     } while (mfb_wait_sync(window));
 
     stbi_image_free(cairo_image_surface_get_data(image));
+    cairo_surface_destroy(image);
+    cairo_surface_destroy(surface);
     cairo_destroy(ctx);
-//    free(surface);
-//    free(image);
 
     return 0;
 }

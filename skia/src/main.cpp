@@ -1,6 +1,5 @@
 #include <vector>
 #include <cassert>
-#include <cmath>
 #include <MiniFB_cpp.h>
 #include <skia/core/SkCanvas.h>
 #include <skia/core/SkSurface.h>
@@ -9,6 +8,12 @@
 #include <skia/core/SkImageInfo.h>
 #include <skia/core/SkData.h>
 #include <skia/core/SkImage.h>
+
+#ifdef _WIN32
+#define _USE_MATH_DEFINES
+#endif
+
+#include <cmath>
 
 void draw(SkCanvas *canvas, int width, int height, const sk_sp<SkImage> &image) {
     // clear
@@ -23,22 +28,25 @@ void draw(SkCanvas *canvas, int width, int height, const sk_sp<SkImage> &image) 
     );
 
     // star
-    const SkScalar R = 0.45f * float(width < height ? width : height);
-    const SkScalar TAU = 6.2831853f;
-    const int N = 8;
+    const SkScalar R = 0.45f * std::min(float(width), float(height));
+    constexpr int N = 7;
+    static_assert(N >= 5 && N % 2 == 1, "N must be odd and >=5");
+    constexpr auto step = (N - 1) / 2;
     SkPath path;
-    path.moveTo(R, 0.0f);
+    SkScalar theta = -M_PI_2;
+    path.moveTo(R * cos(theta), R * sin(theta));
     for (int i = 1; i < N; ++i) {
-        SkScalar theta = 3.0f * float(i) * TAU / float(N);
+        theta += float(step) * M_PI * 2.0f / N;
         path.lineTo(R * cos(theta), R * sin(theta));
     }
     path.close();
     SkPaint paint;
     paint.setAntiAlias(true);
     paint.setColor4f({1.0f, 0.0f, 0.0f, 0.5f});
+    canvas->save();
     canvas->translate(0.5f * float(width), 0.5f * float(height));
     canvas->drawPath(path, paint);
-    canvas->translate(-0.5f * float(width), -0.5f * float(height));
+    canvas->restore();
 }
 
 inline sk_sp<SkImage> loadSkImageFromFile(const std::string &file) {
@@ -79,7 +87,7 @@ int main() {
         int state = mfb_update_ex(window, framebuffer.data(), width, height);
 
         if (state < 0) {
-            window = nullptr;
+            mfb_close(window);
             break;
         }
     } while (mfb_wait_sync(window));
