@@ -15,7 +15,6 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(GLFW_INSTALL OFF CACHE BOOL "" FORCE)
 set(GLFW_LINK_STATIC_ANGLE ON CACHE BOOL "" FORCE)
 
-add_subdirectory(vendor/minifb)
 add_subdirectory(vendor/glfw)
 add_subdirectory(vendor/imgui)
 
