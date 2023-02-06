@@ -5,9 +5,11 @@ project(vcpkg_demo_tbb)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+find_path(EGL_INCLUDE_DIR nanobench.h PATH_SUFFIXES include)
 find_package(TBB CONFIG REQUIRED)
 
 file(GLOB_RECURSE PROJECT_SOURCES src/*.cpp src/*.hpp src/*.c src/*.h)
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 
+target_include_directories(${PROJECT_NAME} PRIVATE "${EGL_INCLUDE_DIR}")
 target_link_libraries(${PROJECT_NAME} PRIVATE TBB::tbb TBB::tbbmalloc)

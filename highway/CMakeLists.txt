@@ -5,13 +5,14 @@ project(vcpkg_demo_highway)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_path(HIGHWAY_INCLUDE_DIRS hwy/highway.h)
+find_path(EGL_INCLUDE_DIR nanobench.h PATH_SUFFIXES include)
+find_path(HIGHWAY_INCLUDE_DIR hwy/highway.h)
 find_library(HIGHWAY_LIBRARY NAMES hwy PATH_SUFFIXES lib)
 
 file(GLOB_RECURSE PROJECT_SOURCES src/*.cpp src/*.hpp src/*.c src/*.h)
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 
-target_include_directories(${PROJECT_NAME} PRIVATE ${HIGHWAY_INCLUDE_DIRS} src)
+target_include_directories(${PROJECT_NAME} PRIVATE ${EGL_INCLUDE_DIR} ${HIGHWAY_INCLUDE_DIR} src)
 target_link_libraries(${PROJECT_NAME} PRIVATE ${HIGHWAY_LIBRARY})
 
 if(MSVC)
