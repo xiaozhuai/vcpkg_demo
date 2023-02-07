@@ -1,9 +1,15 @@
-#include "AngleHelper.h"
+/**
+ * Copyright 2022 xiaozhuai
+ */
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QOpenGLContext>
 #include <QDebug>
+
+#if defined(_WIN32)
+#include "AngleHelper.h"
+#endif
 
 int main(int argc, char *argv[]) {
 #if defined(_WIN32)
@@ -30,8 +36,7 @@ int main(int argc, char *argv[]) {
                     QCoreApplication::exit(-1);
                 }
             },
-            Qt::QueuedConnection
-    );
+            Qt::QueuedConnection);
     engine.load(url);
 
     qDebug() << "OpenGL Module Type:" << QOpenGLContext::openGLModuleType();

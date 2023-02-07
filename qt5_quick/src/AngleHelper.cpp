@@ -1,8 +1,13 @@
+/**
+ * Copyright 2022 xiaozhuai
+ */
+
 #ifdef _WIN32
 
 #define WIN32_LEAN_AND_MEAN
 
 #include "AngleHelper.h"
+
 #include <QString>
 #include <QFile>
 #include <QDir>

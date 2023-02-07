@@ -1,6 +1,16 @@
-#include <vector>
+/**
+ * Copyright 2022 xiaozhuai
+ */
+
+#ifdef _WIN32
+#define _USE_MATH_DEFINES
+#endif
+
+#include <cmath>
 #include <cassert>
-#include <MiniFB_cpp.h>
+
+#include <vector>
+
 #include <skia/core/SkCanvas.h>
 #include <skia/core/SkSurface.h>
 #include <skia/core/SkPath.h>
@@ -8,13 +18,8 @@
 #include <skia/core/SkImageInfo.h>
 #include <skia/core/SkData.h>
 #include <skia/core/SkImage.h>
+#include <MiniFB_cpp.h>
 
-#ifdef _WIN32
-#define _USE_MATH_DEFINES
-#include <math.h>
-#else
-#include <cmath>
-#endif
 
 void draw(SkCanvas *canvas, int width, int height, const sk_sp<SkImage> &image) {
     // clear
@@ -24,12 +29,11 @@ void draw(SkCanvas *canvas, int width, int height, const sk_sp<SkImage> &image) 
     SkSamplingOptions samplingOptions(SkFilterMode::kNearest, SkMipmapMode::kNone);
     canvas->drawImageRect(
             image,
-            SkRect::MakeXYWH(0.0f, 0.0f, float(width), float(height)),
-            samplingOptions
-    );
+            SkRect::MakeXYWH(0.0f, 0.0f, static_cast<float>(width), static_cast<float>(height)),
+            samplingOptions);
 
     // star
-    const SkScalar R = 0.45f * std::min(float(width), float(height));
+    const SkScalar R = 0.45f * std::min(static_cast<float>(width), static_cast<float>(height));
     constexpr int N = 7;
     static_assert(N >= 5 && N % 2 == 1, "N must be odd and >=5");
     constexpr auto step = (N - 1) / 2;
@@ -37,7 +41,7 @@ void draw(SkCanvas *canvas, int width, int height, const sk_sp<SkImage> &image) 
     SkScalar theta = -M_PI_2;
     path.moveTo(R * cos(theta), R * sin(theta));
     for (int i = 1; i < N; ++i) {
-        theta += float(step) * M_PI * 2.0f / N;
+        theta += static_cast<float>(step) * M_PI * 2.0f / N;
         path.lineTo(R * cos(theta), R * sin(theta));
     }
     path.close();
@@ -45,7 +49,7 @@ void draw(SkCanvas *canvas, int width, int height, const sk_sp<SkImage> &image) 
     paint.setAntiAlias(true);
     paint.setColor4f({1.0f, 0.0f, 0.0f, 0.5f});
     canvas->save();
-    canvas->translate(0.5f * float(width), 0.5f * float(height));
+    canvas->translate(0.5f * static_cast<float>(width), 0.5f * static_cast<float>(height));
     canvas->drawPath(path, paint);
     canvas->restore();
 }
@@ -69,8 +73,8 @@ int main() {
     float scaleX, scaleY;
     mfb_get_monitor_scale(window, &scaleX, &scaleY);
 
-    const int width = (int) round(float(windowWidth) * scaleX);
-    const int height = (int) round(float(windowHeight) * scaleY);
+    const int width = static_cast<int>(round(static_cast<float>(windowWidth) * scaleX));
+    const int height = static_cast<int>(round(static_cast<float>(windowHeight) * scaleY));
 
     auto image = loadSkImageFromFile("assets/test.jpg");
 

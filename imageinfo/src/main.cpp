@@ -1,5 +1,9 @@
-#include <imageinfo.hpp>
+/**
+ * Copyright 2022 xiaozhuai
+ */
+
 #include <iostream>
+#include <imageinfo.hpp>
 
 int main() {
     auto file = "assets/test.jpg";

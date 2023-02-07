@@ -1,6 +1,6 @@
-//
-// Created by xiaozhuai on 2023/2/1.
-//
+/**
+ * Copyright 2022 xiaozhuai
+ */
 
 #include "task.h"
 
@@ -67,6 +67,7 @@ HWY_AFTER_NAMESPACE();
 
 
 HWY_EXPORT(div);
+// NOLINTNEXTLINE
 void task_hwy(std::vector<float> &data) {
     return HWY_DYNAMIC_DISPATCH(div)(data.data(), data.size(), 2.0f);
 }

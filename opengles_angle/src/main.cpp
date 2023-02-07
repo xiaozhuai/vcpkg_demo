@@ -1,4 +1,11 @@
+/**
+ * Copyright 2022 xiaozhuai
+ */
+
 #define GLFW_INCLUDE_NONE
+
+#include <cstdio>
+#include <string>
 
 #include <GLES2/gl2.h>
 #include <GLFW/glfw3.h>
@@ -6,8 +13,6 @@
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 #include <stb_image.h>
-#include <string>
-#include <cstdio>
 
 bool showImgui = true;
 
@@ -50,8 +55,8 @@ void initImgui(GLFWwindow *window) {
     ImGuiIO &io = ImGui::GetIO();
     io.IniFilename = nullptr;
 
-    //ImGui::StyleColorsLight();
-    //ImGui::StyleColorsDark();
+    // ImGui::StyleColorsLight();
+    // ImGui::StyleColorsDark();
     ImGui::StyleColorsClassic();
 
     ImVec4 *colors = ImGui::GetStyle().Colors;
@@ -80,7 +85,7 @@ GLuint createShader(GLenum type, const std::string &source) {
         exit(1);
     }
     const char *src = source.c_str();
-    int len = source.size();
+    int len = static_cast<int>(source.size());
     glShaderSource(shader, 1, &src, &len);
     glCompileShader(shader);
     GLint compiled = GL_FALSE;

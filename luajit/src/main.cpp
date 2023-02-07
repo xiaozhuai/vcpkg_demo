@@ -1,3 +1,7 @@
+/**
+ * Copyright 2022 xiaozhuai
+ */
+
 #include <lua.hpp>
 #include <LuaBridge/LuaBridge.h>
 
@@ -50,15 +54,9 @@ int main() {
     luaL_openlibs(L);
     luabridge::getGlobalNamespace(L)
             .addFunction("boolFn", &identityCFunction<bool>)
-            .addFunction("ucharFn", &identityCFunction<unsigned char>)
-            .addFunction("shortFn", &identityCFunction<short>)
-            .addFunction("ushortFn", &identityCFunction<unsigned short>)
+            .addFunction("uint8Fn", &identityCFunction<uint8_t>)
             .addFunction("intFn", &identityCFunction<int>)
             .addFunction("uintFn", &identityCFunction<unsigned int>)
-            .addFunction("longFn", &identityCFunction<long>)
-            .addFunction("ulongFn", &identityCFunction<unsigned long>)
-            .addFunction("longlongFn", &identityCFunction<long long>)
-            .addFunction("ulonglongFn", &identityCFunction<unsigned long long>)
             .addFunction("floatFn", &identityCFunction<float>)
             .addFunction("doubleFn", &identityCFunction<double>)
             .addFunction("charFn", &identityCFunction<char>)
@@ -80,10 +78,10 @@ int main() {
     }
 
     {
-        runLua("result = ucharFn(255)");
+        runLua("result = uint8Fn(255)");
         std::cout << "result: " << result() << "\n";
         assert(result().isNumber());
-        assert(result<unsigned char>() == 255);
+        assert(result<uint8_t>() == 255);
     }
 
     {

@@ -1,11 +1,12 @@
-//
-// Created by xiaozhuai on 2023/2/1.
-//
+/**
+ * Copyright 2022 xiaozhuai
+ */
 
 #pragma once
 
-#include "hwy/base.h"
 #include <vector>
+
+#include "hwy/base.h"
 
 #if defined(__clang__)
 #define OPT_NONE    __attribute__((optnone))
@@ -19,6 +20,7 @@
 #pragma optimize("", off)
 #endif
 
+// NOLINTNEXTLINE
 OPT_NONE inline void task(std::vector<float> &data) {
     float *p = data.data();
     float *pEnd = p + data.size();
@@ -31,4 +33,5 @@ OPT_NONE inline void task(std::vector<float> &data) {
 #pragma optimize("", on)
 #endif
 
+// NOLINTNEXTLINE
 void task_hwy(std::vector<float> &data);

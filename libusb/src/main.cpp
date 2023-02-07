@@ -1,6 +1,10 @@
-#include <libusb.h>
-#include <vector>
+/**
+ * Copyright 2022 xiaozhuai
+ */
+
 #include <cstdio>
+#include <vector>
+#include <libusb.h>
 
 std::vector<const char *> SPEED_ENUM_MAP = {
         "0 UNKNOWN",

@@ -1,16 +1,19 @@
-#include <vector>
-#include <string>
-#include <cassert>
-#include <MiniFB_cpp.h>
-#include <stb_image.h>
-#include <cairomm/cairomm.h>
+/**
+ * Copyright 2022 xiaozhuai
+ */
 
 #ifdef _WIN32
 #define _USE_MATH_DEFINES
-#include <math.h>
-#else
-#include <cmath>
 #endif
+
+#include <cmath>
+#include <cassert>
+
+#include <vector>
+
+#include <stb_image.h>
+#include <MiniFB_cpp.h>
+#include <cairomm/cairomm.h>
 
 using ContextPtr = Cairo::RefPtr<Cairo::Context>;
 using ImageSurfacePtr = Cairo::RefPtr<Cairo::ImageSurface>;
@@ -27,7 +30,7 @@ void draw(const ContextPtr& ctx, int width, int height, const ImageSurfacePtr& i
     ctx->save();
     double imageWidth = image->get_width();
     double imageHeight = image->get_height();
-    ctx->scale(double(width) / imageWidth, double(height) / imageHeight);
+    ctx->scale(static_cast<double>(width) / imageWidth, static_cast<double>(height) / imageHeight);
     ctx->set_source(image, 0, 0);
     ctx->paint();
     ctx->restore();
@@ -35,18 +38,18 @@ void draw(const ContextPtr& ctx, int width, int height, const ImageSurfacePtr& i
     // star
     ctx->save();
     ctx->set_antialias(Cairo::Antialias::ANTIALIAS_DEFAULT);
-    ctx->translate(0.5f * double(width), 0.5f * double(height));
-    const float R = 0.45f * std::min(float(width), float(height));
+    ctx->translate(0.5f * static_cast<double>(width), 0.5f * static_cast<double>(height));
+    const float R = 0.45f * std::min(static_cast<float>(width), static_cast<float>(height));
     constexpr int N = 7;
     static_assert(N >= 5 && N % 2 == 1, "N must be odd and >=5");
     constexpr auto step = (N - 1) / 2;
     float theta = -M_PI_2;
     ctx->move_to(R * cos(theta), R * sin(theta));
     for (int i = 1; i < N; ++i) {
-        theta += float(step) * M_PI * 2.0f / N;
+        theta += static_cast<float>(step) * M_PI * 2.0f / N;
         ctx->line_to(R * cos(theta), R * sin(theta));
     }
-    ctx->translate(-0.5f * double(width), -0.5f * double(height));
+    ctx->translate(-0.5f * static_cast<double>(width), -0.5f * static_cast<double>(height));
     ctx->set_source_rgba(1.0, 0.0, 0.0, 0.5);
     ctx->fill_preserve();
     ctx->restore();
@@ -76,8 +79,8 @@ int main() {
     float scaleX, scaleY;
     mfb_get_monitor_scale(window, &scaleX, &scaleY);
 
-    const int width = (int) round(float(windowWidth) * scaleX);
-    const int height = (int) round(float(windowHeight) * scaleY);
+    const int width = static_cast<int>(round(static_cast<float>(windowWidth) * scaleX));
+    const int height = static_cast<int>(round(static_cast<float>(windowHeight) * scaleY));
 
     auto image = createSurfaceFromImageFile("assets/test.jpg");
 

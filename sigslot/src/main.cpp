@@ -1,5 +1,9 @@
-#include <sigslot/signal.hpp>
+/**
+ * Copyright 2022 xiaozhuai
+ */
+
 #include <iostream>
+#include <sigslot/signal.hpp>
 
 void f() { std::cout << "free function\n"; }
 
@@ -17,6 +21,7 @@ struct foo {
     // Notice how we accept a double as first argument here.
     // This is fine because float is convertible to double.
     // 's' is a reference and can thus be modified.
+    // NOLINTNEXTLINE
     void bar(double d, int i, bool b, std::string &s) {
         s = b ? std::to_string(i) : std::to_string(d);
     }
@@ -74,7 +79,7 @@ int main() {
         sig.connect(obj());
 
         float f = 1.f;
-        short i = 2;  // convertible to int
+        int16_t i = 2;  // convertible to int
         std::string s = "0";
 
         // emit a signal

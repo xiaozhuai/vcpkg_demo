@@ -1,6 +1,6 @@
-//
-// Created by xiaozhuai on 2023/2/7.
-//
+/**
+ * Copyright 2022 xiaozhuai
+ */
 
 #define ANKERL_NANOBENCH_IMPLEMENT
 

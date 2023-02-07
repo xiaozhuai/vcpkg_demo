@@ -1,3 +1,7 @@
+/**
+ * Copyright 2022 xiaozhuai
+ */
+
 #include <cassert>
 #include <libyuv.h>
 #include <stb_image.h>

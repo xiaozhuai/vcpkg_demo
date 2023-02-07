@@ -1,6 +1,10 @@
-#include "mainwindow.h"
+/**
+ * Copyright 2022 xiaozhuai
+ */
 
 #include <QApplication>
+
+#include "mainwindow.h"
 
 int main(int argc, char *argv[]) {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);

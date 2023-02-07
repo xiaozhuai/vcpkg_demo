@@ -1,8 +1,14 @@
-#include <nanobench.h>
-#include <oneapi/tbb.h>
+/**
+ * Copyright 2022 xiaozhuai
+ */
+
+#include <cassert>
+
 #include <vector>
 #include <algorithm>
-#include <cassert>
+
+#include <nanobench.h>
+#include <oneapi/tbb.h>
 
 #if defined(__clang__)
 #define OPT_NONE    __attribute__((optnone))
@@ -16,6 +22,7 @@
 #pragma optimize("", off)
 #endif
 
+// NOLINTNEXTLINE
 OPT_NONE void task(std::vector<float> &data) {
     float *p = data.data();
     float *pEnd = p + data.size();
@@ -24,6 +31,7 @@ OPT_NONE void task(std::vector<float> &data) {
     }
 }
 
+// NOLINTNEXTLINE
 OPT_NONE void task_tbb(std::vector<float> &data) {
     using oneapi::tbb::parallel_for;
     using oneapi::tbb::blocked_range;
@@ -36,8 +44,7 @@ OPT_NONE void task_tbb(std::vector<float> &data) {
                 while (p < pEnd) {
                     *(p++) /= 2.0f;
                 }
-            }
-    );
+            });
 }
 
 #if defined(_MSC_VER)
@@ -49,6 +56,7 @@ int main() {
 
     std::vector<float> data;
     data.resize(100 * 1000 * 1000);
+    // NOLINTNEXTLINE
     std::generate(data.begin(), data.end(), []() { return float((rand() % 1000) * 2); });
     std::vector<float> data2 = data;
 

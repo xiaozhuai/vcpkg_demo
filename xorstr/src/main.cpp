@@ -1,5 +1,9 @@
-#include <xorstr.hpp>
+/**
+ * Copyright 2022 xiaozhuai
+ */
+
 #include <cstdio>
+#include <xorstr.hpp>
 
 int main() {
     printf("%s\n", xorstr_("Hello World!"));
