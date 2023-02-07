@@ -2,6 +2,7 @@
 #include <string>
 #include <cassert>
 #include <MiniFB_cpp.h>
+#include <stb_image.h>
 #include <cairomm/cairomm.h>
 
 #ifdef _WIN32
@@ -10,12 +11,6 @@
 #else
 #include <cmath>
 #endif
-
-#define STB_IMAGE_IMPLEMENTATION
-
-#include <stb_image.h>
-
-#undef STB_IMAGE_IMPLEMENTATION
 
 using ContextPtr = Cairo::RefPtr<Cairo::Context>;
 using ImageSurfacePtr = Cairo::RefPtr<Cairo::ImageSurface>;

@@ -1,5 +1,4 @@
 #define GLFW_INCLUDE_NONE
-#define STB_IMAGE_IMPLEMENTATION
 
 #include <GLES2/gl2.h>
 #include <GLFW/glfw3.h>
