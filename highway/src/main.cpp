@@ -1,5 +1,3 @@
-#define ANKERL_NANOBENCH_IMPLEMENT
-
 #include "task.h"
 #include <nanobench.h>
 #include <vector>
