@@ -11,5 +11,4 @@ find_package(TBB CONFIG REQUIRED)
 file(GLOB_RECURSE PROJECT_SOURCES src/*.cpp src/*.hpp src/*.c src/*.h)
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 
-target_include_directories(${PROJECT_NAME} PRIVATE "${EGL_INCLUDE_DIR}")
 target_link_libraries(${PROJECT_NAME} PRIVATE nanobench::nanobench TBB::tbb TBB::tbbmalloc)
