@@ -17,7 +17,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE nanobench::nanobench ${HIGHWAY_LIB
 
 if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
     if(MSVC)
-        STRING(REGEX REPLACE "/RTC[^ ]*" "" CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}")
+        string(REGEX REPLACE "/RTC[^ ]*" "" CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}")
         set_source_files_properties(src/task.cpp src/task.h PROPERTIES COMPILE_FLAGS "/O2 /Ob1")
     else()
         set_source_files_properties(src/task.cpp src/task.h PROPERTIES COMPILE_FLAGS "-O2")
