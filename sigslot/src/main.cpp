@@ -3,6 +3,7 @@
  */
 
 #include <iostream>
+#include <string>
 #include <sigslot/signal.hpp>
 
 void f() { std::cout << "free function\n"; }
