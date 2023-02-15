@@ -38,8 +38,8 @@ void proc(const std::string &name) {
 
 int main() {
     cv::utils::logging::setLogLevel(cv::utils::logging::LOG_LEVEL_WARNING);
-    proc("test1");
-    proc("test2");
+    proc("test_verify_code");
+    proc("test_verify_code2");
     cv::waitKey(0);
     return 0;
 }

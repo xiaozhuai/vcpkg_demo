@@ -7,7 +7,7 @@
 
 int main() {
     cv::utils::logging::setLogLevel(cv::utils::logging::LOG_LEVEL_WARNING);
-    cv::Mat src = cv::imread("assets/idcard.jpg");
+    cv::Mat src = cv::imread("assets/idcard2.jpg");
     cv::Mat dst;
     cv::imshow("idcard", src);
 
