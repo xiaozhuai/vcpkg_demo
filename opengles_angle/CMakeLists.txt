@@ -19,6 +19,7 @@ target_link_libraries(
         imgui
         unofficial::angle::libEGL
         unofficial::angle::libGLESv2
+        unofficial::angle::libANGLE
         ZLIB::ZLIB
 )
 
