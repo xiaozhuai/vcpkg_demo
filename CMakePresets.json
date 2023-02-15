@@ -1,0 +1,278 @@
+{
+    "version": 3,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 19,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "osx",
+            "displayName": "osx",
+            "description": "MacOS only",
+            "hidden": true,
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Darwin"
+            }
+        },
+        {
+            "name": "win",
+            "displayName": "win",
+            "description": "Windows only",
+            "hidden": true,
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            }
+        },
+        {
+            "name": "x64-osx-debug",
+            "displayName": "x64-osx-debug",
+            "description": "x64-osx-debug",
+            "binaryDir": "cmake-build-x64-osx-debug",
+            "inherits": "osx",
+            "cacheVariables": {
+                "CMAKE_OSX_ARCHITECTURES": "x86_64",
+                "VCPKG_TARGET_TRIPLET": "x64-osx",
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_CMAKE_TOOLCHAIN_FILE}"
+            }
+        },
+        {
+            "name": "x64-osx-release",
+            "displayName": "x64-osx-release",
+            "description": "x64-osx-release",
+            "binaryDir": "cmake-build-x64-osx-release",
+            "inherits": "osx",
+            "cacheVariables": {
+                "CMAKE_OSX_ARCHITECTURES": "x86_64",
+                "VCPKG_TARGET_TRIPLET": "x64-osx",
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_CMAKE_TOOLCHAIN_FILE}"
+            }
+        },
+        {
+            "name": "x64-osx-relwithdebinfo",
+            "displayName": "x64-osx-relwithdebinfo",
+            "description": "x64-osx-relwithdebinfo",
+            "binaryDir": "cmake-build-x64-osx-relwithdebinfo",
+            "inherits": "osx",
+            "cacheVariables": {
+                "CMAKE_OSX_ARCHITECTURES": "x86_64",
+                "VCPKG_TARGET_TRIPLET": "x64-osx",
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_CMAKE_TOOLCHAIN_FILE}"
+            }
+        },
+        {
+            "name": "x64-osx-production",
+            "displayName": "x64-osx-production",
+            "description": "x64-osx-production",
+            "binaryDir": "cmake-build-x64-osx-production",
+            "inherits": "osx",
+            "cacheVariables": {
+                "CMAKE_OSX_ARCHITECTURES": "x86_64",
+                "CMAKE_OSX_DEPLOYMENT_TARGET": "10.15",
+                "VCPKG_TARGET_TRIPLET": "x64-osx-catalina-static-release",
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_CMAKE_TOOLCHAIN_FILE}"
+            }
+        },
+        {
+            "name": "arm64-osx-debug",
+            "displayName": "arm64-osx-debug",
+            "description": "arm64-osx-debug",
+            "binaryDir": "cmake-build-arm64-osx-debug",
+            "inherits": "osx",
+            "cacheVariables": {
+                "CMAKE_OSX_ARCHITECTURES": "arm64",
+                "VCPKG_TARGET_TRIPLET": "arm64-osx",
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_CMAKE_TOOLCHAIN_FILE}"
+            }
+        },
+        {
+            "name": "arm64-osx-release",
+            "displayName": "arm64-osx-release",
+            "description": "arm64-osx-release",
+            "binaryDir": "cmake-build-arm64-osx-release",
+            "inherits": "osx",
+            "cacheVariables": {
+                "CMAKE_OSX_ARCHITECTURES": "arm64",
+                "VCPKG_TARGET_TRIPLET": "arm64-osx",
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_CMAKE_TOOLCHAIN_FILE}"
+            }
+        },
+        {
+            "name": "arm64-osx-relwithdebinfo",
+            "displayName": "arm64-osx-relwithdebinfo",
+            "description": "arm64-osx-relwithdebinfo",
+            "binaryDir": "cmake-build-arm64-osx-relwithdebinfo",
+            "inherits": "osx",
+            "cacheVariables": {
+                "CMAKE_OSX_ARCHITECTURES": "arm64",
+                "VCPKG_TARGET_TRIPLET": "arm64-osx",
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_CMAKE_TOOLCHAIN_FILE}"
+            }
+        },
+        {
+            "name": "arm64-osx-production",
+            "displayName": "arm64-osx-production",
+            "description": "arm64-osx-production",
+            "binaryDir": "cmake-build-arm64-osx-production",
+            "inherits": "osx",
+            "cacheVariables": {
+                "CMAKE_OSX_ARCHITECTURES": "arm64",
+                "CMAKE_OSX_DEPLOYMENT_TARGET": "11.0",
+                "VCPKG_TARGET_TRIPLET": "arm64-osx-bigsur-static-release",
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_CMAKE_TOOLCHAIN_FILE}"
+            }
+        },
+        {
+            "name": "x64-windows-debug",
+            "displayName": "x64-windows-debug",
+            "description": "x64-windows-debug",
+            "binaryDir": "cmake-build-x64-windows-debug",
+            "inherits": "win",
+            "cacheVariables": {
+                "VCPKG_TARGET_TRIPLET": "x64-windows",
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_CMAKE_TOOLCHAIN_FILE}"
+            }
+        },
+        {
+            "name": "x64-windows-release",
+            "displayName": "x64-windows-release",
+            "description": "x64-windows-release",
+            "binaryDir": "cmake-build-x64-windows-release",
+            "inherits": "win",
+            "cacheVariables": {
+                "VCPKG_TARGET_TRIPLET": "x64-windows",
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_CMAKE_TOOLCHAIN_FILE}"
+            }
+        },
+        {
+            "name": "x64-windows-relwithdebinfo",
+            "displayName": "x64-windows-relwithdebinfo",
+            "description": "x64-windows-relwithdebinfo",
+            "binaryDir": "cmake-build-x64-windows-relwithdebinfo",
+            "inherits": "win",
+            "cacheVariables": {
+                "VCPKG_TARGET_TRIPLET": "x64-windows",
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_CMAKE_TOOLCHAIN_FILE}"
+            }
+        },
+        {
+            "name": "x64-windows-production",
+            "displayName": "x64-windows-production",
+            "description": "x64-windows-production",
+            "binaryDir": "cmake-build-x64-windows-production",
+            "inherits": "win",
+            "cacheVariables": {
+                "VCPKG_TARGET_TRIPLET": "x64-windows-static-release",
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_CMAKE_TOOLCHAIN_FILE}"
+            }
+        },
+        {
+            "name": "x86-windows-production",
+            "displayName": "x86-windows-production",
+            "description": "x86-windows-production",
+            "binaryDir": "cmake-build-x86-windows-production",
+            "inherits": "win",
+            "cacheVariables": {
+                "VCPKG_TARGET_TRIPLET": "x86-windows-static-release",
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_CMAKE_TOOLCHAIN_FILE}"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "x64-osx-debug",
+            "displayName": "x64-osx-debug",
+            "configurePreset": "x64-osx-debug",
+            "configuration": "Debug",
+            "jobs": 16
+        },
+        {
+            "name": "x64-osx-release",
+            "displayName": "x64-osx-release",
+            "configurePreset": "x64-osx-release",
+            "configuration": "Release",
+            "jobs": 16
+        },
+        {
+            "name": "x64-osx-relwithdebinfo",
+            "displayName": "x64-osx-relwithdebinfo",
+            "configurePreset": "x64-osx-relwithdebinfo",
+            "configuration": "RelWithDebInfo",
+            "jobs": 16
+        },
+        {
+            "name": "x64-osx-production",
+            "displayName": "x64-osx-production",
+            "configurePreset": "x64-osx-production",
+            "configuration": "Release",
+            "jobs": 16
+        },
+        {
+            "name": "arm64-osx-debug",
+            "displayName": "arm64-osx-debug",
+            "configurePreset": "arm64-osx-debug",
+            "configuration": "Debug",
+            "jobs": 16
+        },
+        {
+            "name": "arm64-osx-release",
+            "displayName": "arm64-osx-release",
+            "configurePreset": "arm64-osx-release",
+            "configuration": "Release",
+            "jobs": 16
+        },
+        {
+            "name": "arm64-osx-relwithdebinfo",
+            "displayName": "arm64-osx-relwithdebinfo",
+            "configurePreset": "arm64-osx-relwithdebinfo",
+            "configuration": "RelWithDebInfo",
+            "jobs": 16
+        },
+        {
+            "name": "arm64-osx-production",
+            "displayName": "arm64-osx-production",
+            "configurePreset": "arm64-osx-production",
+            "configuration": "Release",
+            "jobs": 16
+        },
+        {
+            "name": "x64-windows-debug",
+            "displayName": "x64-windows-debug",
+            "configurePreset": "x64-windows-debug",
+            "configuration": "Debug",
+            "jobs": 16
+        },
+        {
+            "name": "x64-windows-release",
+            "displayName": "x64-windows-release",
+            "configurePreset": "x64-windows-release",
+            "configuration": "Release",
+            "jobs": 16
+        },
+        {
+            "name": "x64-windows-relwithdebinfo",
+            "displayName": "x64-windows-relwithdebinfo",
+            "configurePreset": "x64-windows-relwithdebinfo",
+            "configuration": "RelWithDebInfo",
+            "jobs": 16
+        },
+        {
+            "name": "x64-windows-production",
+            "displayName": "x64-windows-production",
+            "configurePreset": "x64-windows-production",
+            "configuration": "Release",
+            "jobs": 16
+        },
+        {
+            "name": "x86-windows-production",
+            "displayName": "x86-windows-production",
+            "configurePreset": "x86-windows-production",
+            "configuration": "Release",
+            "jobs": 16
+        }
+    ]
+}
