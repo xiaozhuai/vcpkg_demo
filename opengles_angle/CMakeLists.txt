@@ -21,3 +21,11 @@ target_link_libraries(
         unofficial::angle::libGLESv2
         ZLIB::ZLIB
 )
+
+if (APPLE)
+    target_link_libraries(
+            ${PROJECT_NAME} PRIVATE
+            "-framework QuartzCore"
+            "-framework IOSurface"
+    )
+endif ()
