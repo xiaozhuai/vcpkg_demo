@@ -3,8 +3,6 @@
  */
 
 #include <cstdio>
-#include <cassert>
-#include <vector>
 #include <yoga/Yoga.h>
 #include <yoga/YGNode.h>
 #include <yoga/YGLayout.h>
