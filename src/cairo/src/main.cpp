@@ -6,19 +6,18 @@
 #define _USE_MATH_DEFINES
 #endif
 
-#include <cmath>
-#include <cassert>
-
-#include <vector>
-
-#include <stb_image.h>
 #include <MiniFB_cpp.h>
 #include <cairomm/cairomm.h>
+#include <stb_image.h>
+
+#include <cassert>
+#include <cmath>
+#include <vector>
 
 using ContextPtr = Cairo::RefPtr<Cairo::Context>;
 using ImageSurfacePtr = Cairo::RefPtr<Cairo::ImageSurface>;
 
-void draw(const ContextPtr& ctx, int width, int height, const ImageSurfacePtr& image) {
+void draw(const ContextPtr &ctx, int width, int height, const ImageSurfacePtr &image) {
     // clear
     ctx->save();
     ctx->set_source_rgba(0.0, 0.0, 0.0, 0.0);
