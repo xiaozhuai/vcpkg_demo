@@ -7,7 +7,7 @@
 #include <vector>
 #include <algorithm>
 
-#include <nanobench.h>
+#include "nanobench.h"
 
 #include "task.h"
 

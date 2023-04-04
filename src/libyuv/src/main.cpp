@@ -3,8 +3,8 @@
  */
 
 #include <cassert>
-#include <libyuv.h>
-#include <stb_image.h>
+#include "libyuv.h"
+#include "stb_image.h"
 
 int main() {
     int width, height, channels;

@@ -4,8 +4,8 @@
 
 #include <vector>
 #include <array>
-#include <opencv2/opencv.hpp>
-#include <opencv2/core/utils/logger.hpp>
+#include "opencv2/opencv.hpp"
+#include "opencv2/core/utils/logger.hpp"
 
 struct Size {
     int x;

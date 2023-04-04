@@ -3,9 +3,9 @@
  */
 
 #include <cstdio>
-#include <yoga/Yoga.h>
-#include <yoga/YGNode.h>
-#include <yoga/YGLayout.h>
+#include "yoga/Yoga.h"
+#include "yoga/YGNode.h"
+#include "yoga/YGLayout.h"
 
 int main() {
     auto root = YGNodeNew();

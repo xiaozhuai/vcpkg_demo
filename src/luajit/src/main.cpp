@@ -2,8 +2,10 @@
  * Copyright 2022 xiaozhuai
  */
 
-#include <lua.hpp>
-#include <LuaBridge/LuaBridge.h>
+#include "lua.hpp"
+// clang-format off
+#include "LuaBridge/LuaBridge.h"
+// clang-format on
 
 static lua_State *L;
 

@@ -9,10 +9,10 @@
 ////////////////////////////////////////////////////////
 // #undef HWY_TARGET_INCLUDE
 // #define HWY_TARGET_INCLUDE "task.cpp"
-// #include <hwy/foreach_target.h>
+// #include "hwy/foreach_target.h"
 
 
-#include <hwy/highway.h>
+#include "hwy/highway.h"
 
 HWY_BEFORE_NAMESPACE();
 

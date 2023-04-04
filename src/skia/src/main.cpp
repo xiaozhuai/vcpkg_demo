@@ -11,14 +11,14 @@
 
 #include <vector>
 
-#include <skia/core/SkCanvas.h>
-#include <skia/core/SkSurface.h>
-#include <skia/core/SkPath.h>
-#include <skia/core/SkScalar.h>
-#include <skia/core/SkImageInfo.h>
-#include <skia/core/SkData.h>
-#include <skia/core/SkImage.h>
-#include <MiniFB_cpp.h>
+#include "skia/core/SkCanvas.h"
+#include "skia/core/SkSurface.h"
+#include "skia/core/SkPath.h"
+#include "skia/core/SkScalar.h"
+#include "skia/core/SkImageInfo.h"
+#include "skia/core/SkData.h"
+#include "skia/core/SkImage.h"
+#include "MiniFB_cpp.h"
 
 
 void draw(SkCanvas *canvas, int width, int height, const sk_sp<SkImage> &image) {

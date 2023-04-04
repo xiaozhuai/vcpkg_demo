@@ -3,7 +3,7 @@
  */
 
 #include <iostream>
-#include <imageinfo.hpp>
+#include "imageinfo.hpp"
 
 int main() {
     auto file = "assets/test.jpg";

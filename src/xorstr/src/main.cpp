@@ -3,7 +3,7 @@
  */
 
 #include <cstdio>
-#include <xorstr.hpp>
+#include "xorstr.hpp"
 
 int main() {
     printf("%s\n", xorstr_("Hello World!"));

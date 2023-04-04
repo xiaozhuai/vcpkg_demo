@@ -4,7 +4,7 @@
 
 #include <cstdio>
 #include <vector>
-#include <libusb.h>
+#include "libusb.h"
 
 std::vector<const char *> SPEED_ENUM_MAP = {
         "0 UNKNOWN",

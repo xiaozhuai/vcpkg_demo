@@ -7,8 +7,8 @@
 #include <vector>
 #include <algorithm>
 
-#include <nanobench.h>
-#include <oneapi/tbb.h>
+#include "nanobench.h"
+#include "oneapi/tbb.h"
 
 // NOLINTNEXTLINE
 void task(const std::vector<float> &data, std::vector<float> &output) {
