@@ -2,10 +2,11 @@
  * Copyright 2022 xiaozhuai
  */
 
-#include <vector>
 #include <array>
-#include "opencv2/opencv.hpp"
+#include <vector>
+
 #include "opencv2/core/utils/logger.hpp"
+#include "opencv2/opencv.hpp"
 
 struct Size {
     int x;
@@ -22,21 +23,20 @@ int main() {
     }
 
     std::vector<Size> supportResolutions = {
-            {1920, 1440},
-            {1920, 1080},
-            {1440, 1080},
-            {1440, 810},
-            {1280, 960},
-            {1280, 720},
-            {640,  480},
-            {640,  360},
+        {1920, 1440},
+        {1920, 1080},
+        {1440, 1080},
+        {1440,  810},
+        {1280,  960},
+        {1280,  720},
+        { 640,  480},
+        { 640,  360},
     };
 
     Size cameraSize = {0, 0};
 
     for (const auto &resolution : supportResolutions) {
-        if (camera.set(cv::CAP_PROP_FRAME_WIDTH, resolution.x)
-            && camera.set(cv::CAP_PROP_FRAME_HEIGHT, resolution.y)) {
+        if (camera.set(cv::CAP_PROP_FRAME_WIDTH, resolution.x) && camera.set(cv::CAP_PROP_FRAME_HEIGHT, resolution.y)) {
             cameraSize = resolution;
             break;
         }

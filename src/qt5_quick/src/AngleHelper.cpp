@@ -8,10 +8,11 @@
 
 #include "AngleHelper.h"
 
-#include <QString>
-#include <QFile>
-#include <QDir>
 #include <Windows.h>
+
+#include <QDir>
+#include <QFile>
+#include <QString>
 
 static QString executablePath() {
     wchar_t buffer[MAX_PATH];
@@ -24,13 +25,12 @@ static QString executableDirPath() {
     return exeFile.absoluteDir().path();
 }
 
-#define LIB_EGL "libEGL.dll"
+#define LIB_EGL    "libEGL.dll"
 #define LIB_GLESv2 "libGLESv2.dll"
 
 bool isAngleAvailable() {
     QDir exeDir(executableDirPath());
-    return QFile::exists(exeDir.filePath(LIB_EGL))
-           && QFile::exists(exeDir.filePath(LIB_GLESv2));
+    return QFile::exists(exeDir.filePath(LIB_EGL)) && QFile::exists(exeDir.filePath(LIB_GLESv2));
 }
 
 #endif

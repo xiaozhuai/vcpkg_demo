@@ -6,20 +6,18 @@
 #define _USE_MATH_DEFINES
 #endif
 
-#include <cmath>
 #include <cassert>
-
+#include <cmath>
 #include <vector>
 
+#include "MiniFB_cpp.h"
 #include "skia/core/SkCanvas.h"
-#include "skia/core/SkSurface.h"
-#include "skia/core/SkPath.h"
-#include "skia/core/SkScalar.h"
-#include "skia/core/SkImageInfo.h"
 #include "skia/core/SkData.h"
 #include "skia/core/SkImage.h"
-#include "MiniFB_cpp.h"
-
+#include "skia/core/SkImageInfo.h"
+#include "skia/core/SkPath.h"
+#include "skia/core/SkScalar.h"
+#include "skia/core/SkSurface.h"
 
 void draw(SkCanvas *canvas, int width, int height, const sk_sp<SkImage> &image) {
     // clear
@@ -27,10 +25,8 @@ void draw(SkCanvas *canvas, int width, int height, const sk_sp<SkImage> &image) 
 
     // image
     SkSamplingOptions samplingOptions(SkFilterMode::kNearest, SkMipmapMode::kNone);
-    canvas->drawImageRect(
-            image,
-            SkRect::MakeXYWH(0.0f, 0.0f, static_cast<float>(width), static_cast<float>(height)),
-            samplingOptions);
+    canvas->drawImageRect(image, SkRect::MakeXYWH(0.0f, 0.0f, static_cast<float>(width), static_cast<float>(height)),
+                          samplingOptions);
 
     // star
     const SkScalar R = 0.45f * std::min(static_cast<float>(width), static_cast<float>(height));

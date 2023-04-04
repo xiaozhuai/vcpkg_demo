@@ -2,10 +2,9 @@
  * Copyright 2022 xiaozhuai
  */
 
-#include <cassert>
-
-#include <vector>
 #include <algorithm>
+#include <cassert>
+#include <vector>
 
 #include "nanobench.h"
 #include "oneapi/tbb.h"
@@ -22,20 +21,18 @@ void task(const std::vector<float> &data, std::vector<float> &output) {
 
 // NOLINTNEXTLINE
 void task_tbb(const std::vector<float> &data, std::vector<float> &output) {
-    using oneapi::tbb::parallel_for;
     using oneapi::tbb::blocked_range;
+    using oneapi::tbb::parallel_for;
     const float *ptr = data.data();
     float *ptr_out = output.data();
-    parallel_for(
-            blocked_range<size_t>(0, data.size()),
-            [ptr, ptr_out](const blocked_range<size_t> &r) {
-                const float *p = ptr + r.begin();
-                const float *p_end = ptr + r.end();
-                float *p_out = ptr_out + r.begin();
-                while (p < p_end) {
-                    *(p_out++) = *(p++) / 2.0f;
-                }
-            });
+    parallel_for(blocked_range<size_t>(0, data.size()), [ptr, ptr_out](const blocked_range<size_t> &r) {
+        const float *p = ptr + r.begin();
+        const float *p_end = ptr + r.end();
+        float *p_out = ptr_out + r.begin();
+        while (p < p_end) {
+            *(p_out++) = *(p++) / 2.0f;
+        }
+    });
 }
 
 int main() {
@@ -50,12 +47,8 @@ int main() {
     std::vector<float> output(data.size());
     std::vector<float> output_tbb(data.size());
 
-    Bench().minEpochIterations(ITER_COUNT).run("task", [&] {
-        task(data, output);
-    });
-    Bench().minEpochIterations(ITER_COUNT).run("task_tbb", [&] {
-        task_tbb(data, output_tbb);
-    });
+    Bench().minEpochIterations(ITER_COUNT).run("task", [&] { task(data, output); });
+    Bench().minEpochIterations(ITER_COUNT).run("task_tbb", [&] { task_tbb(data, output_tbb); });
 
     for (int i = 0; i < data.size(); ++i) {
         assert(output[i] == output_tbb[i]);

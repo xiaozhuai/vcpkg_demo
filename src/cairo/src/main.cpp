@@ -6,13 +6,13 @@
 #define _USE_MATH_DEFINES
 #endif
 
-#include "MiniFB_cpp.h"
-#include "cairomm/cairomm.h"
-#include "stb_image.h"
-
 #include <cassert>
 #include <cmath>
 #include <vector>
+
+#include "MiniFB_cpp.h"
+#include "cairomm/cairomm.h"
+#include "stb_image.h"
 
 using ContextPtr = Cairo::RefPtr<Cairo::Context>;
 using ImageSurfacePtr = Cairo::RefPtr<Cairo::ImageSurface>;

@@ -3,6 +3,7 @@
  */
 
 #include <cassert>
+
 #include "libyuv.h"
 #include "stb_image.h"
 
@@ -18,12 +19,7 @@ int main() {
     auto *i420U = i420Y + width * height;
     auto *i420V = i420U + width * height / 4;
 
-    libyuv::RGBAToI420(
-            image, width * 4,
-            i420Y, width,
-            i420U, width / 2,
-            i420V, width / 2,
-            width, height);
+    libyuv::RGBAToI420(image, width * 4, i420Y, width, i420U, width / 2, i420V, width / 2, width, height);
 
     stbi_image_free(image);
     delete[] i420Image;

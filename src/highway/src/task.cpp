@@ -11,7 +11,6 @@
 // #define HWY_TARGET_INCLUDE "task.cpp"
 // #include "hwy/foreach_target.h"
 
-
 #include "hwy/highway.h"
 
 HWY_BEFORE_NAMESPACE();
@@ -20,14 +19,10 @@ namespace HWY_NAMESPACE {
 
 namespace hn = hwy::HWY_NAMESPACE;
 
-
-
-
-
 ////////////////////////////////////////////////////////
 ////               output = src / a                 ////
 ////////////////////////////////////////////////////////
-template<class D>
+template <class D>
 void one_div(const D d, const float *HWY_RESTRICT src, float *HWY_RESTRICT output, float a) {
     auto x = hn::Load(d, src);
     const auto o = hn::Div(x, hn::Set(d, a));
@@ -47,22 +42,14 @@ void div(const float *HWY_RESTRICT src, float *HWY_RESTRICT output, size_t size,
     }
 }
 
-
-
-
-
-
-
 }  // namespace HWY_NAMESPACE
 
 HWY_AFTER_NAMESPACE();
-
 
 ////////////////////////////////////////////////////////
 ////               Export functions                 ////
 ////////////////////////////////////////////////////////
 #if HWY_ONCE
-
 
 // HWY_EXPORT(div);
 // NOLINTNEXTLINE

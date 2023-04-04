@@ -3,8 +3,9 @@
  */
 
 #include <vector>
-#include "opencv2/opencv.hpp"
+
 #include "opencv2/core/utils/logger.hpp"
+#include "opencv2/opencv.hpp"
 
 static double angle(cv::Point pt1, cv::Point pt2, cv::Point pt0) {
     double dx1 = pt1.x - pt0.x;
@@ -82,7 +83,7 @@ void findSquares(const cv::Mat &image, std::vector<std::vector<cv::Point>> &squa
 class Visualization {
 public:
     Visualization(std::vector<cv::Point> srcPoints, const cv::Mat &originImage)
-            : srcPoints(srcPoints), originImage(originImage) {}
+        : srcPoints(srcPoints), originImage(originImage) {}
 
     void update() {
         markImage = originImage.clone();
@@ -103,10 +104,10 @@ public:
 
         cv::Size dstSize(960, 604);
         std::vector<cv::Point> dstPoints = {
-                {960, 0},
-                {0,   0},
-                {0,   604},
-                {960, 604}
+            {960,   0},
+            {  0,   0},
+            {  0, 604},
+            {960, 604}
         };
 
         auto matrix = cv::findHomography(srcPoints, dstPoints, cv::RANSAC);
@@ -152,23 +153,26 @@ int main() {
     Visualization visual(srcPoints, originImage);
     visual.update();
 
-    cv::setMouseCallback("Mark Image", [](int event, int x, int y, int flags, void *userdata) {
-        Visualization &visual = *(reinterpret_cast<Visualization *>(userdata));
-        if (event == cv::EVENT_LBUTTONUP) {
-            int i = 0;
-            for (const auto &p : visual.srcPoints) {
-                auto distance = cv::norm(cv::Point(x, y) - p);
-                if (distance <= 11.0) {
-                    visual.moving = i;
-                    visual.update();
-                    return;
+    cv::setMouseCallback(
+        "Mark Image",
+        [](int event, int x, int y, int flags, void *userdata) {
+            Visualization &visual = *(reinterpret_cast<Visualization *>(userdata));
+            if (event == cv::EVENT_LBUTTONUP) {
+                int i = 0;
+                for (const auto &p : visual.srcPoints) {
+                    auto distance = cv::norm(cv::Point(x, y) - p);
+                    if (distance <= 11.0) {
+                        visual.moving = i;
+                        visual.update();
+                        return;
+                    }
+                    i++;
                 }
-                i++;
+                visual.moving = -1;
+                visual.update();
             }
-            visual.moving = -1;
-            visual.update();
-        }
-    }, &visual);
+        },
+        &visual);
 
     while (true) {
         int key = cv::waitKey(1);

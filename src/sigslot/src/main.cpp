@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <string>
+
 #include "sigslot/signal.hpp"
 
 void f() { std::cout << "free function\n"; }
@@ -23,17 +24,13 @@ struct foo {
     // This is fine because float is convertible to double.
     // 's' is a reference and can thus be modified.
     // NOLINTNEXTLINE
-    void bar(double d, int i, bool b, std::string &s) {
-        s = b ? std::to_string(i) : std::to_string(d);
-    }
+    void bar(double d, int i, bool b, std::string &s) { s = b ? std::to_string(i) : std::to_string(d); }
 };
 
 // Function objects can cope with default arguments and overloading.
 // It does not work with static and member functions.
 struct obj {
-    void operator()(float, int, bool, std::string &, int = 0) {
-        std::cout << "I was here\n";
-    }
+    void operator()(float, int, bool, std::string &, int = 0) { std::cout << "I was here\n"; }
 
     void operator()() {}
 };
@@ -59,17 +56,14 @@ int main() {
         sig();
     }
 
-
     {
         // declare a signal with float, int, bool and string& arguments
-        sigslot::signal<float, int, bool, std::string&> sig;
+        sigslot::signal<float, int, bool, std::string &> sig;
 
         // a generic lambda that prints its arguments to stdout
-        auto printer = [] (auto a, auto && ...args) {
+        auto printer = [](auto a, auto &&...args) {
             std::cout << a;
-            (void)std::initializer_list<int>{
-                    ((void)(std::cout << " " << args), 1)...
-            };
+            (void)std::initializer_list<int>{((void)(std::cout << " " << args), 1)...};
             std::cout << "\n";
         };
 

@@ -16,13 +16,13 @@
 
 bool showImgui = true;
 
-static void glfwErrorCallback(int code, const char *msg) {
-    fprintf(stderr, "[%d] %s\n", code, msg);
-}
+static void glfwErrorCallback(int code, const char *msg) { fprintf(stderr, "[%d] %s\n", code, msg); }
 
 static void glfwKeyCallback(GLFWwindow *win, int key, int scanCode, int action, int mods) {
-    if (key == GLFW_KEY_TAB && action == GLFW_RELEASE) showImgui = !showImgui;
-    else if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE) glfwSetWindowShouldClose(win, GLFW_TRUE);
+    if (key == GLFW_KEY_TAB && action == GLFW_RELEASE)
+        showImgui = !showImgui;
+    else if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
+        glfwSetWindowShouldClose(win, GLFW_TRUE);
 }
 
 GLFWwindow *initWindow() {
@@ -168,16 +168,10 @@ GLuint aPosition;
 GLuint aTexCoord;
 GLint uTexture;
 float vertices[] = {
-//        | ---- aPosition ---- | --- aTexCoord --- |
-        -1.0f, -1.0f, 0.0f, 0.0f,
-        +1.0f, -1.0f, 1.0f, 0.0f,
-        -1.0f, +1.0f, 0.0f, 1.0f,
-        +1.0f, +1.0f, 1.0f, 1.0f,
+    //        | ---- aPosition ---- | --- aTexCoord --- |
+    -1.0f, -1.0f, 0.0f, 0.0f, +1.0f, -1.0f, 1.0f, 0.0f, -1.0f, +1.0f, 0.0f, 1.0f, +1.0f, +1.0f, 1.0f, 1.0f,
 };
-uint8_t indices[] = {
-        0, 1, 2,
-        2, 1, 3
-};
+uint8_t indices[] = {0, 1, 2, 2, 1, 3};
 int fbWidth = 0;
 int fbHeight = 0;
 
@@ -186,8 +180,8 @@ void draw(GLFWwindow *window) {
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-//    printf("aPosition: %u, aTexCoord: %u, uTexture: %d\n", aPosition, aTexCoord, uTexture);
-//    printf("program: %u, texture: %u, error: %08X\n", program, texture, glGetError());
+    //    printf("aPosition: %u, aTexCoord: %u, uTexture: %d\n", aPosition, aTexCoord, uTexture);
+    //    printf("program: %u, texture: %u, error: %08X\n", program, texture, glGetError());
 
     glUseProgram(program);
     glVertexAttribPointer(aPosition, 2, GL_FLOAT, false, 4 * sizeof(float), vertices);

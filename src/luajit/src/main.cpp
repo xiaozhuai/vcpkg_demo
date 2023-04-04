@@ -9,7 +9,7 @@
 
 static lua_State *L;
 
-template<class T>
+template <class T>
 static T identityCFunction(T value) {
     return value;
 }
@@ -23,29 +23,23 @@ static void runLua(const std::string &script) {
     }
 }
 
-template<class T = luabridge::LuaRef>
+template <class T = luabridge::LuaRef>
 static T result() {
     return luabridge::getGlobal(L, "result");
 }
 
 class Test {
 public:
-    Test(int val, int val2) : value(val), value2(val2) {
-        printf("Test(%d, %d)\n", val, val2);
-    }
+    Test(int val, int val2) : value(val), value2(val2) { printf("Test(%d, %d)\n", val, val2); }
 
-    ~Test() {
-        printf("~Test()\n");
-    }
+    ~Test() { printf("~Test()\n"); }
 
     int add(int a) {
         value += a;
         return value;
     }
 
-    static int sum(int a, int b) {
-        return a + b;
-    }
+    static int sum(int a, int b) { return a + b; }
 
     int value = 0;
     int value2 = 0;
@@ -55,22 +49,22 @@ int main() {
     L = luaL_newstate();
     luaL_openlibs(L);
     luabridge::getGlobalNamespace(L)
-            .addFunction("boolFn", &identityCFunction<bool>)
-            .addFunction("uint8Fn", &identityCFunction<uint8_t>)
-            .addFunction("intFn", &identityCFunction<int>)
-            .addFunction("uintFn", &identityCFunction<unsigned int>)
-            .addFunction("floatFn", &identityCFunction<float>)
-            .addFunction("doubleFn", &identityCFunction<double>)
-            .addFunction("charFn", &identityCFunction<char>)
-            .addFunction("cstringFn", &identityCFunction<const char *>)
-            .addFunction("stringFn", &identityCFunction<std::string>)
-            .beginClass<Test>("Test")
-                .addConstructor < void(*)(int, int) > ()
-                .addProperty("value", &Test::value, true)
-                .addProperty("value2", &Test::value2, true)
-                .addFunction("add", &Test::add)
-                .addStaticFunction("sum", &Test::sum)
-            .endClass();
+        .addFunction("boolFn", &identityCFunction<bool>)
+        .addFunction("uint8Fn", &identityCFunction<uint8_t>)
+        .addFunction("intFn", &identityCFunction<int>)
+        .addFunction("uintFn", &identityCFunction<unsigned int>)
+        .addFunction("floatFn", &identityCFunction<float>)
+        .addFunction("doubleFn", &identityCFunction<double>)
+        .addFunction("charFn", &identityCFunction<char>)
+        .addFunction("cstringFn", &identityCFunction<const char *>)
+        .addFunction("stringFn", &identityCFunction<std::string>)
+        .beginClass<Test>("Test")
+        .addConstructor<void (*)(int, int)>()
+        .addProperty("value", &Test::value, true)
+        .addProperty("value2", &Test::value2, true)
+        .addFunction("add", &Test::add)
+        .addStaticFunction("sum", &Test::sum)
+        .endClass();
 
     {
         runLua("result = boolFn(false)");

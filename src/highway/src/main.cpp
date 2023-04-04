@@ -2,13 +2,11 @@
  * Copyright 2022 xiaozhuai
  */
 
-#include <cassert>
-
-#include <vector>
 #include <algorithm>
+#include <cassert>
+#include <vector>
 
 #include "nanobench.h"
-
 #include "task.h"
 
 // NOLINTNEXTLINE
@@ -33,12 +31,8 @@ int main() {
     std::vector<float> output(data.size());
     std::vector<float> output_hwy(data.size());
 
-    Bench().minEpochIterations(ITER_COUNT).run("task", [&] {
-        task(data, output);
-    });
-    Bench().minEpochIterations(ITER_COUNT).run("task_hwy", [&] {
-        task_hwy(data, output_hwy);
-    });
+    Bench().minEpochIterations(ITER_COUNT).run("task", [&] { task(data, output); });
+    Bench().minEpochIterations(ITER_COUNT).run("task_hwy", [&] { task_hwy(data, output_hwy); });
 
     for (int i = 0; i < data.size(); ++i) {
         assert(output[i] == output_hwy[i]);

@@ -2,8 +2,9 @@
  * Copyright 2022 xiaozhuai
  */
 
-#include <iostream>
 #include <fstream>
+#include <iostream>
+
 #include "proto/address_book.pb.h"
 
 void PromptForAddress(data::Person *person) {
