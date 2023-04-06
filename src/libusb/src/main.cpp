@@ -8,7 +8,14 @@
 #include "libusb.h"
 
 std::vector<const char *> SPEED_ENUM_MAP = {
-    "0 UNKNOWN", "1 LOW (1.5Mbps)", "2 FULL (12Mbps)", "3 HIGH (480Mbps)", "4 SUPER (5000Mbps)", "5 SUPER+ (10000Mbps)",
+    // clang-format off
+    "0 UNKNOWN",
+    "1 LOW (1.5Mbps)",
+    "2 FULL (12Mbps)",
+    "3 HIGH (480Mbps)",
+    "4 SUPER (5000Mbps)",
+    "5 SUPER+ (10000Mbps)",
+    // clang-format on
 };
 
 int main() {
