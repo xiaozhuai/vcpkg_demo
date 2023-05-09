@@ -11,4 +11,4 @@ file(GLOB_RECURSE PROJECT_SOURCES src/*.cpp src/*.hpp src/*.c src/*.h)
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 
 target_include_directories(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
-target_link_libraries(${PROJECT_NAME} PRIVATE proto)
+target_link_libraries(${PROJECT_NAME} PRIVATE vcpkg_demo_protobuf_proto)
