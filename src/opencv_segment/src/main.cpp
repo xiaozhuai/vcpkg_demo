@@ -41,15 +41,19 @@ int main() {
 
         // 身份证号位置大于图片的一半，并且宽度是高度的8倍以上
         if (rect.y > src.rows / 2 && rect.width / rect.height > 8) {
-            cv::Mat result = src(rect);
+            cv::Mat result = src(rect).clone();
             cv::imshow("idcard_5_result", result);
+
+            cvtColor(result, result, cv::COLOR_RGB2GRAY);
+            cv::threshold(result, result, 110, 255, cv::THRESH_BINARY);
+            cv::imshow("idcard_6_result_threshold", result);
         }
 
         // 标记区域
         cv::rectangle(src, rect, cv::Scalar(255, 0, 255));
     }
 
-    cv::imshow("idcard_6_src_and_rect", src);
+    cv::imshow("idcard_7_src_and_rect", src);
 
     cv::waitKey(0);
     return 0;
