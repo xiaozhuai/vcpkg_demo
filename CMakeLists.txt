@@ -37,6 +37,7 @@ add_subdirectory(src/qt5_widgets)
 add_subdirectory(src/sigslot)
 add_subdirectory(src/skia)
 add_subdirectory(src/tbb)
+add_subdirectory(src/uvw)
 add_subdirectory(src/xorstr)
 add_subdirectory(src/yoga)
 
