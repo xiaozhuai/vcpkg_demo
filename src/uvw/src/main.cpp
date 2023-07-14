@@ -17,4 +17,5 @@ int main() {
 
     timer->start(uvw::timer_handle::time{1000}, uvw::timer_handle::time{0});
     loop->run();
+    return 0;
 }
