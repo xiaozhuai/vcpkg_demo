@@ -2,8 +2,8 @@
  * Copyright 2022 xiaozhuai
  */
 
-#include "lua.hpp"
 // clang-format off
+#include "lua.hpp"
 #include "LuaBridge/LuaBridge.h"
 // clang-format on
 
