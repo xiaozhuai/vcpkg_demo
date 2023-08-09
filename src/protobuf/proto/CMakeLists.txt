@@ -1,4 +1,4 @@
-find_package(Protobuf REQUIRED)
+find_package(Protobuf CONFIG REQUIRED)
 
 file(GLOB_RECURSE PROTO_FILES *.proto)
 
