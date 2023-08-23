@@ -7,13 +7,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_path(LUABRIDGE_INCLUDE_DIRS LuaBridge/LuaBridge.h)
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(LUAJIT REQUIRED IMPORTED_TARGET luajit)
+pkg_check_modules(luajit REQUIRED IMPORTED_TARGET luajit)
 
 file(GLOB_RECURSE PROJECT_SOURCES src/*.cpp src/*.hpp src/*.c src/*.h)
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${LUABRIDGE_INCLUDE_DIRS})
-target_link_libraries(${PROJECT_NAME} PRIVATE PkgConfig::LUAJIT)
+target_link_libraries(${PROJECT_NAME} PRIVATE PkgConfig::luajit)
 if(APPLE)
     target_link_options(${PROJECT_NAME} PRIVATE -pagezero_size 10000)
 endif()
