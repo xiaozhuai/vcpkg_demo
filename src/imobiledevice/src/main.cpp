@@ -18,8 +18,8 @@ int main() {
         if (devices[i]->conn_type != CONNECTION_USBMUXD) {
             continue;
         }
-        idevice_error_t ret = IDEVICE_E_UNKNOWN_ERROR;
-        lockdownd_error_t ld_ret = LOCKDOWN_E_UNKNOWN_ERROR;
+        idevice_error_t ret;
+        lockdownd_error_t ld_ret;
         idevice_t device = nullptr;
         lockdownd_client_t client = nullptr;
 
@@ -48,6 +48,7 @@ int main() {
         lockdownd_client_free(client);
         idevice_free(device);
     }
+    idevice_device_list_extended_free(devices);
 
     return 0;
 }
