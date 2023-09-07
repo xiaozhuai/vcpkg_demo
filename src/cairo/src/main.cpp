@@ -64,7 +64,7 @@ ImageSurfacePtr createSurface(int width, int height, uint8_t *framebuffer = null
 ImageSurfacePtr createSurfaceFromImageFile(const std::string &file) {
     int width, height, channels;
     auto data = stbi_load(file.c_str(), &width, &height, &channels, 4);
-    assert(data != nullptr);
+    assert(data);
     // RGBA 2 BGRA
     for (int i = 0; i < width * height; ++i) std::swap(data[i * 4], data[i * 4 + 2]);
     return createSurface(width, height, data);

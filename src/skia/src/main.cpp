@@ -51,7 +51,9 @@ void draw(SkCanvas *canvas, int width, int height, const sk_sp<SkImage> &image) 
 }
 
 inline sk_sp<SkImage> loadSkImageFromFile(const std::string &file) {
-    return SkImage::MakeFromEncoded(SkData::MakeFromFileName(file.c_str()));
+    auto data = SkData::MakeFromFileName(file.c_str());
+    assert(data);
+    return SkImage::MakeFromEncoded(data);
 }
 
 inline sk_sp<SkSurface> createSurface(int width, int height, uint8_t *framebuffer) {
