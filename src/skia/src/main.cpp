@@ -53,13 +53,12 @@ void draw(SkCanvas *canvas, int width, int height, const sk_sp<SkImage> &image) 
 inline sk_sp<SkImage> loadSkImageFromFile(const std::string &file) {
     auto data = SkData::MakeFromFileName(file.c_str());
     assert(data);
-    return SkImage::MakeFromEncoded(data);
+    return SkImages::DeferredFromEncodedData(data);
 }
 
 inline sk_sp<SkSurface> createSurface(int width, int height, uint8_t *framebuffer) {
-    // SkImageInfo info = SkImageInfo::MakeN32Premul(width, height);
     SkImageInfo info = SkImageInfo::MakeN32(width, height, SkAlphaType::kUnpremul_SkAlphaType);
-    sk_sp<SkSurface> surface = SkSurface::MakeRasterDirect(info, framebuffer, width * 4);
+    sk_sp<SkSurface> surface = SkSurfaces::WrapPixels(info, framebuffer, width * 4);
     return surface;
 }
 
