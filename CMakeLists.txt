@@ -21,6 +21,7 @@ target_include_directories(imgui PUBLIC "${GLES2_INCLUDE_DIR}")
 target_link_libraries(imgui PUBLIC glfw)
 
 add_subdirectory(src/cairo)
+add_subdirectory(src/duktape)
 add_subdirectory(src/highway)
 add_subdirectory(src/imageinfo)
 add_subdirectory(src/imobiledevice)
