@@ -205,8 +205,9 @@ void drawImgui(GLFWwindow *window) {
 
     ImGui::ShowDemoWindow();
 
-    ImGui::Render();
     glViewport(0, 0, fbWidth, fbHeight);
+    ImGui::EndFrame();
+    ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 

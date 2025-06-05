@@ -57,7 +57,8 @@ std::vector<DeviceDesc> list_usb_devices() {
         int speed = libusb_get_device_speed(device);
 
         std::vector<std::string> descriptors;
-        libusb_device_handle *device_handle = libusb_open_device_with_vid_pid(context, desc.idVendor, desc.idProduct);
+        libusb_device_handle *device_handle = nullptr;
+        libusb_open(device, &device_handle);
         if (device_handle) {
             for (int desc_index = 1; desc_index < 256; desc_index++) {
                 unsigned char buffer[1024] = {0};
