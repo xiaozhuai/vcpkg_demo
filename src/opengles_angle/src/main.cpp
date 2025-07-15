@@ -7,6 +7,9 @@
 #include <cstdio>
 #include <string>
 
+#include "EGL/egl.h"
+#include "EGL/eglext.h"
+#include "EGL/eglext_angle.h"
 #include "GLES3/gl3.h"
 #include "GLFW/glfw3.h"
 #include "imgui.h"
@@ -19,10 +22,11 @@ bool showImgui = true;
 static void glfwErrorCallback(int code, const char *msg) { fprintf(stderr, "[%d] %s\n", code, msg); }
 
 static void glfwKeyCallback(GLFWwindow *win, int key, int scanCode, int action, int mods) {
-    if (key == GLFW_KEY_TAB && action == GLFW_RELEASE)
+    if (key == GLFW_KEY_TAB && action == GLFW_RELEASE) {
         showImgui = !showImgui;
-    else if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
+    } else if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE) {
         glfwSetWindowShouldClose(win, GLFW_TRUE);
+    }
 }
 
 GLFWwindow *initWindow() {
@@ -31,13 +35,8 @@ GLFWwindow *initWindow() {
         exit(1);
     }
     glfwSetErrorCallback(glfwErrorCallback);
-    glfwWindowHint(GLFW_CONTEXT_CREATION_API, GLFW_EGL_CONTEXT_API);
-    glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-    glfwWindowHint(GLFW_SAMPLES, 4);
     auto *window = glfwCreateWindow(960, 540, "vcpkg_demo_opengles_angle", nullptr, nullptr);
     if (!window) {
         fprintf(stderr, "Could not create window\n");
@@ -45,8 +44,99 @@ GLFWwindow *initWindow() {
         exit(1);
     }
     glfwSetKeyCallback(window, glfwKeyCallback);
-    glfwMakeContextCurrent(window);
     return window;
+}
+
+EGLDisplay initEGLDisplay() {
+#if defined(__APPLE__)
+    EGLAttrib display_attribs[] = {
+        EGL_PLATFORM_ANGLE_TYPE_ANGLE,
+        EGL_PLATFORM_ANGLE_TYPE_METAL_ANGLE,
+        EGL_POWER_PREFERENCE_ANGLE,
+        EGL_HIGH_POWER_ANGLE,
+        EGL_NONE,
+    };
+    EGLDisplay display = eglGetPlatformDisplay(EGL_PLATFORM_ANGLE_ANGLE, nullptr, display_attribs);
+#elif defined(_WIN32)
+    EGLAttrib display_attribs[] = {
+        EGL_PLATFORM_ANGLE_TYPE_ANGLE,
+        EGL_PLATFORM_ANGLE_TYPE_D3D11_ANGLE,
+        EGL_NONE,
+    };
+    EGLDisplay display = eglGetPlatformDisplay(EGL_PLATFORM_ANGLE_ANGLE, nullptr, display_attribs);
+#else
+#error "Unsupported platform for EGL display initialization"
+#endif
+    if (display == EGL_NO_DISPLAY) {
+        fprintf(stderr, "Failed to get EGL display, error: 0x%X\n", eglGetError());
+        exit(1);
+    }
+    if (!eglInitialize(display, nullptr, nullptr)) {
+        fprintf(stderr, "Failed to initialize EGL, error: 0x%X\n", eglGetError());
+        exit(1);
+    }
+
+    return display;
+}
+
+void destroyEGLDisplay(EGLDisplay display) {
+    if (display != EGL_NO_DISPLAY) {
+        eglTerminate(display);
+    }
+}
+
+EGLConfig initEGLConfig(EGLDisplay display) {
+    // clang-format off
+    EGLint config_attribs[] = {
+        EGL_SURFACE_TYPE,          EGL_WINDOW_BIT,
+        EGL_RENDERABLE_TYPE,       EGL_OPENGL_ES3_BIT,
+        EGL_COLOR_BUFFER_TYPE,     EGL_RGB_BUFFER,
+        EGL_BUFFER_SIZE,           32,
+        EGL_RED_SIZE,              8,
+        EGL_GREEN_SIZE,            8,
+        EGL_BLUE_SIZE,             8,
+        EGL_ALPHA_SIZE,            8,
+        EGL_DEPTH_SIZE,            24,
+        EGL_STENCIL_SIZE,          8,
+        EGL_NONE
+    };
+    // clang-format on
+    EGLint num_configs;
+    EGLConfig config = nullptr;
+    if (!eglChooseConfig(display, config_attribs, &config, 1, &num_configs)) {
+        fprintf(stderr, "Failed to choose EGL config, error: 0x%X\n", eglGetError());
+        exit(1);
+    }
+    return config;
+}
+
+EGLContext initEGLContext(EGLDisplay display, EGLConfig config) {
+    // clang-format off
+    EGLint context_attribs[] = {
+        EGL_CONTEXT_CLIENT_VERSION, 3,
+        EGL_NONE
+    };
+    // clang-format on
+    EGLContext context = eglCreateContext(display, config, EGL_NO_CONTEXT, context_attribs);
+    if (!context) {
+        fprintf(stderr, "Failed to create EGL context, error: 0x%X\n", eglGetError());
+        exit(1);
+    }
+    return context;
+}
+
+void destroyEGLContext(EGLDisplay display, EGLContext context) {
+    if (context != EGL_NO_CONTEXT) {
+        eglDestroyContext(display, context);
+    }
+}
+
+EGLSurface createEGLSurface(EGLDisplay display, EGLConfig config, GLFWwindow *window);
+
+void destroyEGLSurface(EGLDisplay display, EGLSurface surface) {
+    if (surface != EGL_NO_SURFACE) {
+        eglDestroySurface(display, surface);
+    }
 }
 
 void initImgui(GLFWwindow *window) {
@@ -71,11 +161,6 @@ void destroyImgui() {
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
-}
-
-void destroyWindow(GLFWwindow *window) {
-    glfwDestroyWindow(window);
-    glfwTerminate();
 }
 
 GLuint createShader(GLenum type, const std::string &source) {
@@ -146,7 +231,8 @@ GLuint createTextureFromFile(const std::string &file) {
     return texture;
 }
 
-const char *VERT = R"(
+int main() {
+    const char *VERT = R"(
 attribute vec4 aPosition;
 attribute vec2 aTexCoord;
 varying vec2 texCoord;
@@ -155,67 +241,39 @@ void main() {
     texCoord = aTexCoord;
 }
 )";
-const char *FRAG = R"(
+    const char *FRAG = R"(
 varying highp vec2 texCoord;
 uniform sampler2D uTexture;
 void main() {
     gl_FragColor = texture2D(uTexture, texCoord);
 }
 )";
-GLuint program = 0;
-GLuint texture = 0;
-GLuint aPosition;
-GLuint aTexCoord;
-GLint uTexture;
-float vertices[] = {
-    // clang-format off
-    -1.0f, -1.0f, 0.0f, 0.0f,
-    +1.0f, -1.0f, 1.0f, 0.0f,
-    -1.0f, +1.0f, 0.0f, 1.0f,
-    +1.0f, +1.0f, 1.0f, 1.0f,
-    // clang-format on
-};
-uint8_t indices[] = {0, 1, 2, 2, 1, 3};
-int fbWidth = 0;
-int fbHeight = 0;
+    GLuint program = 0;
+    GLuint texture = 0;
+    GLuint aPosition;
+    GLuint aTexCoord;
+    GLint uTexture;
+    float vertices[] = {
+        // clang-format off
+        -1.0f, -1.0f, 0.0f, 0.0f,
+        +1.0f, -1.0f, 1.0f, 0.0f,
+        -1.0f, +1.0f, 0.0f, 1.0f,
+        +1.0f, +1.0f, 1.0f, 1.0f,
+        // clang-format on
+    };
+    uint8_t indices[] = {0, 1, 2, 2, 1, 3};
+    int fbWidth = 0;
+    int fbHeight = 0;
 
-void draw(GLFWwindow *window) {
-    glViewport(0, 0, fbWidth, fbHeight);
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-
-    //    printf("aPosition: %u, aTexCoord: %u, uTexture: %d\n", aPosition, aTexCoord, uTexture);
-    //    printf("program: %u, texture: %u, error: %08X\n", program, texture, glGetError());
-
-    glUseProgram(program);
-    glVertexAttribPointer(aPosition, 2, GL_FLOAT, false, 4 * sizeof(float), vertices);
-    glEnableVertexAttribArray(aPosition);
-    glVertexAttribPointer(aTexCoord, 2, GL_FLOAT, false, 4 * sizeof(float), vertices + 2);
-    glEnableVertexAttribArray(aTexCoord);
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    glUniform1i(uTexture, 1);
-    glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(indices[0]), GL_UNSIGNED_BYTE, indices);
-}
-
-void drawImgui(GLFWwindow *window) {
-    ImGui_ImplOpenGL3_NewFrame();
-    ImGui_ImplGlfw_NewFrame();
-    ImGui::NewFrame();
-
-    ImGui::ShowDemoWindow();
-
-    glViewport(0, 0, fbWidth, fbHeight);
-    ImGui::EndFrame();
-    ImGui::Render();
-    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-}
-
-int main() {
     auto *window = initWindow();
-    initImgui(window);
 
-    glfwGetFramebufferSize(window, &fbWidth, &fbHeight);
+    auto egl_display = initEGLDisplay();
+    auto egl_config = initEGLConfig(egl_display);
+    auto egl_context = initEGLContext(egl_display, egl_config);
+    auto egl_surface = createEGLSurface(egl_display, egl_config, window);
+    eglMakeCurrent(egl_display, egl_surface, egl_surface, egl_context);
+
+    initImgui(window);
 
     program = createProgram(VERT, FRAG);
     texture = createTextureFromFile("assets/test.jpg");
@@ -225,19 +283,53 @@ int main() {
     uTexture = glGetUniformLocation(program, "uTexture");
 
     while (!glfwWindowShouldClose(window)) {
-        draw(window);
+        eglQuerySurface(egl_display, egl_surface, EGL_WIDTH, &fbWidth);
+        eglQuerySurface(egl_display, egl_surface, EGL_HEIGHT, &fbHeight);
+
+        glfwPollEvents();
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glViewport(0, 0, fbWidth, fbHeight);
+
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+        glUseProgram(program);
+        glVertexAttribPointer(aPosition, 2, GL_FLOAT, false, 4 * sizeof(float), vertices);
+        glEnableVertexAttribArray(aPosition);
+        glVertexAttribPointer(aTexCoord, 2, GL_FLOAT, false, 4 * sizeof(float), vertices + 2);
+        glEnableVertexAttribArray(aTexCoord);
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, texture);
+        glUniform1i(uTexture, 1);
+        glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(indices[0]), GL_UNSIGNED_BYTE, indices);
+
         if (showImgui) {
-            drawImgui(window);
+            ImGui_ImplOpenGL3_NewFrame();
+            ImGui_ImplGlfw_NewFrame();
+            ImGui::NewFrame();
+
+            ImGui::ShowDemoWindow();
+
+            glBindFramebuffer(GL_FRAMEBUFFER, 0);
+            glViewport(0, 0, fbWidth, fbHeight);
+            ImGui::EndFrame();
+            ImGui::Render();
+            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         }
 
-        glfwSwapBuffers(window);
-        glfwPollEvents();
+        eglSwapBuffers(egl_display, egl_surface);
     }
 
     glDeleteProgram(program);
     glDeleteTextures(1, &texture);
 
     destroyImgui();
-    destroyWindow(window);
+
+    destroyEGLSurface(egl_display, egl_surface);
+    glfwDestroyWindow(window);
+    glfwTerminate();
+    destroyEGLContext(egl_display, egl_context);
+    destroyEGLDisplay(egl_display);
+
     return 0;
 }
