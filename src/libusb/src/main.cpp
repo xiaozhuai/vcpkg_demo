@@ -2,7 +2,9 @@
  * Copyright 2022 xiaozhuai
  */
 
+#include <algorithm>
 #include <cstdio>
+#include <string>
 #include <thread>
 #include <vector>
 
