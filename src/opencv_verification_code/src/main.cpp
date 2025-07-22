@@ -2,7 +2,6 @@
  * Copyright 2022 xiaozhuai
  */
 
-#include "opencv2/core/utils/logger.hpp"
 #include "opencv2/opencv.hpp"
 
 void proc(const std::string &name) {
@@ -37,7 +36,6 @@ void proc(const std::string &name) {
 }
 
 int main() {
-    cv::utils::logging::setLogLevel(cv::utils::logging::LOG_LEVEL_WARNING);
     proc("test_verify_code");
     proc("test_verify_code2");
     cv::waitKey(0);

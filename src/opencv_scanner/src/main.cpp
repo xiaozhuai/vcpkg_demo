@@ -4,7 +4,6 @@
 
 #include <vector>
 
-#include "opencv2/core/utils/logger.hpp"
 #include "opencv2/opencv.hpp"
 
 static double angle(cv::Point pt1, cv::Point pt2, cv::Point pt0) {
@@ -133,8 +132,6 @@ public:
 };
 
 int main() {
-    cv::utils::logging::setLogLevel(cv::utils::logging::LOG_LEVEL_WARNING);
-
     cv::Mat originImage = cv::imread("assets/idcard.jpg");
     cv::Mat markImage = originImage.clone();
     cv::Mat resultImage;

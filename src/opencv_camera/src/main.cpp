@@ -5,7 +5,6 @@
 #include <array>
 #include <vector>
 
-#include "opencv2/core/utils/logger.hpp"
 #include "opencv2/opencv.hpp"
 
 struct Size {
@@ -14,8 +13,6 @@ struct Size {
 };
 
 int main() {
-    cv::utils::logging::setLogLevel(cv::utils::logging::LOG_LEVEL_WARNING);
-
     cv::VideoCapture camera(0);
     if (!camera.isOpened()) {
         printf("ERROR! Unable to open camera\n");
