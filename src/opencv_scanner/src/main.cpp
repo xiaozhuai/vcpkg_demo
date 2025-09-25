@@ -150,26 +150,23 @@ int main() {
     Visualization visual(srcPoints, originImage);
     visual.update();
 
-    cv::setMouseCallback(
-        "Mark Image",
-        [](int event, int x, int y, int flags, void *userdata) {
-            Visualization &visual = *(reinterpret_cast<Visualization *>(userdata));
-            if (event == cv::EVENT_LBUTTONUP) {
-                int i = 0;
-                for (const auto &p : visual.srcPoints) {
-                    auto distance = cv::norm(cv::Point(x, y) - p);
-                    if (distance <= 11.0) {
-                        visual.moving = i;
-                        visual.update();
-                        return;
-                    }
-                    i++;
+    cv::setMouseCallback("Mark Image", [](int event, int x, int y, int flags, void *userdata) {
+        Visualization &visual = *(reinterpret_cast<Visualization *>(userdata));
+        if (event == cv::EVENT_LBUTTONUP) {
+            int i = 0;
+            for (const auto &p : visual.srcPoints) {
+                auto distance = cv::norm(cv::Point(x, y) - p);
+                if (distance <= 11.0) {
+                    visual.moving = i;
+                    visual.update();
+                    return;
                 }
-                visual.moving = -1;
-                visual.update();
+                i++;
             }
-        },
-        &visual);
+            visual.moving = -1;
+            visual.update();
+        }
+    }, &visual);
 
     while (true) {
         int key = cv::waitKey(1);
