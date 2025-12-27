@@ -151,7 +151,7 @@
             "name": "target-android",
             "hidden": true,
             "environment": {
-                "ANDROID_NDK_HOME": "$env{ANDROID_HOME}/ndk/18.1.5063045"
+                "ANDROID_NDK_HOME": "$env{ANDROID_HOME}/ndk/27.3.13750724"
             },
             "cacheVariables": {
                 "VCPKG_CHAINLOAD_TOOLCHAIN_FILE": {

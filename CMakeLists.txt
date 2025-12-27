@@ -33,7 +33,7 @@ add_subdirectory(src/uvw)
 add_subdirectory(src/xorstr)
 add_subdirectory(src/yoga)
 
-find_program(CLANG_FORMAT clang-format)
+find_program(CLANG_FORMAT clang-format NO_CMAKE_PATH)
 if (CLANG_FORMAT)
     file(GLOB_RECURSE ALL_SOURCES CONFIGURE_DEPENDS "src/*.h" "src/*.hpp" "src/*.c" "src/*.cpp" "src/*.cc")
     add_custom_target(
