@@ -159,7 +159,7 @@
                     "value": "$env{ANDROID_NDK_HOME}/build/cmake/android.toolchain.cmake"
                 },
                 "ANDROID_STL": "c++_shared",
-                "ANDROID_PLATFORM": "android-21",
+                "ANDROID_PLATFORM": "android-28",
                 "ANDROID_ARM_NEON": {
                     "type": "BOOL",
                     "value": "ON"
