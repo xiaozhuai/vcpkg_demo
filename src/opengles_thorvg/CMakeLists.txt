@@ -9,7 +9,7 @@ find_package(glesx CONFIG REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
 find_package(Stb REQUIRED)
 find_package(PkgConfig)
-pkg_check_modules(thorvg REQUIRED IMPORTED_TARGET thorvg)
+pkg_check_modules(thorvg REQUIRED IMPORTED_TARGET thorvg-1)
 
 file(GLOB_RECURSE PROJECT_SOURCES CONFIGURE_DEPENDS src/*.cpp src/*.mm src/*.hpp src/*.c src/*.h)
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})

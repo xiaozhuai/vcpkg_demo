@@ -274,9 +274,12 @@ void main() {
     GLuint tvg_texture = createTexture(tvg_canvas_width, tvg_canvas_height, nullptr);
     GLuint tvg_framebuffer = createFramebuffer(tvg_canvas_width, tvg_canvas_height, tvg_texture);
 
-    tvg::Initializer::init(tvg::CanvasEngine::Gl, 4);
+    tvg::Initializer::init(4);
     auto tvg_canvas = tvg::GlCanvas::gen();
-    tvg_canvas->target(tvg_framebuffer, tvg_canvas_width, tvg_canvas_height);
+    tvg_canvas->target(                                                              //
+        egl_display, egl_surface, egl_context,                                       //
+        static_cast<int32_t>(tvg_framebuffer), tvg_canvas_width, tvg_canvas_height,  //
+        tvg::ColorSpace::ABGR8888S);
 
     program = createProgram(VERT, FRAG);
     texture = createTextureFromFile("assets/test.jpg");
@@ -325,14 +328,14 @@ void main() {
 
             path->fill(150, 150, 255);
 
-            path->stroke(3);
-            path->stroke(0, 0, 255);
-            path->stroke(tvg::StrokeJoin::Round);
-            path->stroke(tvg::StrokeCap::Round);
+            path->strokeWidth(3);
+            path->strokeFill(0, 0, 255);
+            path->strokeJoin(tvg::StrokeJoin::Round);
+            path->strokeCap(tvg::StrokeCap::Round);
             float pattern[2] = {10, 10};
-            path->stroke(pattern, 2);
+            path->strokeDash(pattern, 2);
 
-            tvg_canvas->push(std::move(path));
+            tvg_canvas->add(path);
 
             tvg_canvas->draw();
             tvg_canvas->sync();
@@ -360,7 +363,7 @@ void main() {
         eglSwapBuffers(egl_display, egl_surface);
     }
 
-    tvg::Initializer::term(tvg::CanvasEngine::Gl);
+    tvg::Initializer::term();
 
     glDeleteProgram(program);
     glDeleteFramebuffers(1, &tvg_framebuffer);
