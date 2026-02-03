@@ -8,11 +8,9 @@
 #include <memory>
 #include <string>
 
-#include "EGL/egl.h"
-#include "EGL/eglext.h"
-#include "EGL/eglext_angle.h"
 #include "GLES3/gl3.h"
 #include "GLFW/glfw3.h"
+#include "egl_context.hpp"
 #include "stb_image.h"
 #include "thorvg.h"
 
@@ -44,98 +42,6 @@ GLFWwindow *initWindow() {
     }
     glfwSetKeyCallback(window, glfwKeyCallback);
     return window;
-}
-
-EGLDisplay initEGLDisplay() {
-#if defined(__APPLE__)
-    EGLAttrib display_attribs[] = {
-        EGL_PLATFORM_ANGLE_TYPE_ANGLE,
-        EGL_PLATFORM_ANGLE_TYPE_METAL_ANGLE,
-        EGL_POWER_PREFERENCE_ANGLE,
-        EGL_HIGH_POWER_ANGLE,
-        EGL_NONE,
-    };
-    EGLDisplay display = eglGetPlatformDisplay(EGL_PLATFORM_ANGLE_ANGLE, nullptr, display_attribs);
-#elif defined(_WIN32)
-    EGLAttrib display_attribs[] = {
-        EGL_PLATFORM_ANGLE_TYPE_ANGLE,
-        EGL_PLATFORM_ANGLE_TYPE_D3D11_ANGLE,
-        EGL_NONE,
-    };
-    EGLDisplay display = eglGetPlatformDisplay(EGL_PLATFORM_ANGLE_ANGLE, nullptr, display_attribs);
-#else
-#error "Unsupported platform for EGL display initialization"
-#endif
-    if (display == EGL_NO_DISPLAY) {
-        fprintf(stderr, "Failed to get EGL display, error: 0x%X\n", eglGetError());
-        exit(1);
-    }
-    if (!eglInitialize(display, nullptr, nullptr)) {
-        fprintf(stderr, "Failed to initialize EGL, error: 0x%X\n", eglGetError());
-        exit(1);
-    }
-
-    return display;
-}
-
-void destroyEGLDisplay(EGLDisplay display) {
-    if (display != EGL_NO_DISPLAY) {
-        eglTerminate(display);
-    }
-}
-
-EGLConfig initEGLConfig(EGLDisplay display) {
-    // clang-format off
-    EGLint config_attribs[] = {
-        EGL_SURFACE_TYPE,          EGL_WINDOW_BIT,
-        EGL_RENDERABLE_TYPE,       EGL_OPENGL_ES3_BIT,
-        EGL_COLOR_BUFFER_TYPE,     EGL_RGB_BUFFER,
-        EGL_BUFFER_SIZE,           32,
-        EGL_RED_SIZE,              8,
-        EGL_GREEN_SIZE,            8,
-        EGL_BLUE_SIZE,             8,
-        EGL_ALPHA_SIZE,            8,
-        EGL_DEPTH_SIZE,            24,
-        EGL_STENCIL_SIZE,          8,
-        EGL_NONE
-    };
-    // clang-format on
-    EGLint num_configs;
-    EGLConfig config = nullptr;
-    if (!eglChooseConfig(display, config_attribs, &config, 1, &num_configs)) {
-        fprintf(stderr, "Failed to choose EGL config, error: 0x%X\n", eglGetError());
-        exit(1);
-    }
-    return config;
-}
-
-EGLContext initEGLContext(EGLDisplay display, EGLConfig config) {
-    // clang-format off
-    EGLint context_attribs[] = {
-        EGL_CONTEXT_CLIENT_VERSION, 3,
-        EGL_NONE
-    };
-    // clang-format on
-    EGLContext context = eglCreateContext(display, config, EGL_NO_CONTEXT, context_attribs);
-    if (!context) {
-        fprintf(stderr, "Failed to create EGL context, error: 0x%X\n", eglGetError());
-        exit(1);
-    }
-    return context;
-}
-
-void destroyEGLContext(EGLDisplay display, EGLContext context) {
-    if (context != EGL_NO_CONTEXT) {
-        eglDestroyContext(display, context);
-    }
-}
-
-EGLSurface createEGLSurface(EGLDisplay display, EGLConfig config, GLFWwindow *window);
-
-void destroyEGLSurface(EGLDisplay display, EGLSurface surface) {
-    if (surface != EGL_NO_SURFACE) {
-        eglDestroySurface(display, surface);
-    }
 }
 
 GLuint createShader(GLenum type, const std::string &source) {
@@ -263,10 +169,10 @@ void main() {
 
     auto *window = initWindow();
 
-    auto egl_display = initEGLDisplay();
-    auto egl_config = initEGLConfig(egl_display);
-    auto egl_context = initEGLContext(egl_display, egl_config);
-    auto egl_surface = createEGLSurface(egl_display, egl_config, window);
+    auto egl_display = initEglDisplay();
+    auto egl_config = initEglConfig(egl_display);
+    auto egl_context = initEglContext(egl_display, egl_config);
+    auto egl_surface = createEglSurface(egl_display, egl_config, window);
     eglMakeCurrent(egl_display, egl_surface, egl_surface, egl_context);
 
     int tvg_canvas_width = 400;
@@ -370,11 +276,11 @@ void main() {
     glDeleteTextures(1, &tvg_texture);
     glDeleteTextures(1, &texture);
 
-    destroyEGLSurface(egl_display, egl_surface);
+    destroyEglSurface(egl_display, egl_surface);
     glfwDestroyWindow(window);
     glfwTerminate();
-    destroyEGLContext(egl_display, egl_context);
-    destroyEGLDisplay(egl_display);
+    destroyEglContext(egl_display, egl_context);
+    destroyEglDisplay(egl_display);
 
     return 0;
 }

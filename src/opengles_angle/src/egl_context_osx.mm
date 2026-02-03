@@ -4,9 +4,9 @@
 
 #import <QuartzCore/CAMetalLayer.h>
 
-#include "EGL/egl.h"
 #include "GLFW/glfw3.h"
 #include "GLFW/glfw3native.h"
+#include "egl_context.hpp"
 
 @interface ScalingMetalLayer : CAMetalLayer
 @end
@@ -25,7 +25,7 @@
 
 @end
 
-EGLSurface createEGLSurface(EGLDisplay display, EGLConfig config, GLFWwindow *window) {
+EGLSurface createEglSurface(EGLDisplay display, EGLConfig config, GLFWwindow *window) {
     @autoreleasepool {
         NSWindow *ns_window = glfwGetCocoaWindow(window);
         NSView *view = [ns_window contentView];
