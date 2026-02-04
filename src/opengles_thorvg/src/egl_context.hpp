@@ -7,8 +7,6 @@
 #define VCPKG_DEMO_EGL_CONTEXT_HPP
 
 #include "EGL/egl.h"
-#include "EGL/eglext.h"
-#include "EGL/eglext_angle.h"
 #include "GLFW/glfw3.h"
 
 EGLDisplay initEglDisplay();
