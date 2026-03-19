@@ -12,6 +12,7 @@ if (APPLE)
     endif ()
 endif ()
 
+add_subdirectory(src/cctz)
 #add_subdirectory(src/cairo)
 add_subdirectory(src/duktape)
 add_subdirectory(src/highway)
