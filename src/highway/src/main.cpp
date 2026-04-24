@@ -7,7 +7,7 @@
 #include <vector>
 
 #include "nanobench.h"
-#include "task.h"
+#include "scale.hpp"
 
 int main() {
     using ankerl::nanobench::Bench;
@@ -22,11 +22,11 @@ int main() {
     std::vector<float> output_hwy(data.size());
 
     Bench().minEpochIterations(ITER_COUNT).run("task", [&] {
-        task(data, output, 3.0f);
+        scale(output.data(), data.data(), data.size(), 3.0f);
         doNotOptimizeAway(output);
     });
     Bench().minEpochIterations(ITER_COUNT).run("task_hwy", [&] {
-        task_hwy(data, output_hwy, 3.0f);
+        scale_hwy(output_hwy.data(), data.data(), data.size(), 3.0f);
         doNotOptimizeAway(output);
     });
 
