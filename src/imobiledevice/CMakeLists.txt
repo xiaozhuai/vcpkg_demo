@@ -11,7 +11,7 @@ find_package(unofficial-libimobiledevice CONFIG REQUIRED)
 file(GLOB_RECURSE PROJECT_SOURCES CONFIGURE_DEPENDS src/*.cpp src/*.hpp src/*.c src/*.h)
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 target_link_libraries(${PROJECT_NAME} PRIVATE
-        unofficial::libplist::libplist
-        unofficial::libplist::libplist++
-        unofficial::libimobiledevice::libimobiledevice
+    unofficial::libplist::libplist
+    unofficial::libplist::libplist++
+    unofficial::libimobiledevice::libimobiledevice
 )

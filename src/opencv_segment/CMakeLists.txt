@@ -10,9 +10,8 @@ find_package(OpenCV CONFIG REQUIRED)
 file(GLOB_RECURSE PROJECT_SOURCES CONFIGURE_DEPENDS src/*.cpp src/*.hpp src/*.c src/*.h)
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 
-target_link_libraries(
-        ${PROJECT_NAME} PRIVATE
-        opencv_core
-        opencv_imgcodecs
-        opencv_highgui
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    opencv_core
+    opencv_imgcodecs
+    opencv_highgui
 )

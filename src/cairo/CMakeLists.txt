@@ -12,6 +12,3 @@ pkg_check_modules(cairomm REQUIRED IMPORTED_TARGET cairomm-1.16)
 file(GLOB_RECURSE PROJECT_SOURCES CONFIGURE_DEPENDS src/*.cpp src/*.hpp src/*.c src/*.h)
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 target_link_libraries(${PROJECT_NAME} PRIVATE PkgConfig::cairomm minifb::minifb)
-
-# fix link cairo
-# https://gitlab.kitware.com/cmake/cmake/-/merge_requests/9109/diffs

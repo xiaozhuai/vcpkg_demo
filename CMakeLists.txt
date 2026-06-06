@@ -4,13 +4,13 @@ project(vcpkg_demo)
 
 add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
 add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
-if (APPLE)
+if(APPLE)
     include(CheckLinkerFlag)
     check_linker_flag(C "-Wl,-no_warn_duplicate_libraries" HAVE_NO_WARN_DUPLICATE)
-    if (HAVE_NO_WARN_DUPLICATE)
+    if(HAVE_NO_WARN_DUPLICATE)
         add_link_options("-Wl,-no_warn_duplicate_libraries")
-    endif ()
-endif ()
+    endif()
+endif()
 
 add_subdirectory(src/cctz)
 #add_subdirectory(src/cairo)
@@ -42,11 +42,11 @@ add_subdirectory(src/xorstr)
 add_subdirectory(src/yoga)
 
 find_program(CLANG_FORMAT clang-format NO_CMAKE_PATH)
-if (CLANG_FORMAT)
+if(CLANG_FORMAT)
     file(GLOB_RECURSE ALL_SOURCES CONFIGURE_DEPENDS "src/*.h" "src/*.hpp" "src/*.c" "src/*.cpp" "src/*.cc" "src/*.mm")
     add_custom_target(
-            format
-            COMMAND "${CLANG_FORMAT}" -i --verbose ${ALL_SOURCES}
-            WORKING_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}"
+        format
+        COMMAND "${CLANG_FORMAT}" -i --verbose ${ALL_SOURCES}
+        WORKING_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}"
     )
-endif ()
+endif()

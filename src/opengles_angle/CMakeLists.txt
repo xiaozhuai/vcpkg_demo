@@ -14,15 +14,14 @@ file(GLOB_RECURSE PROJECT_SOURCES CONFIGURE_DEPENDS src/*.cpp src/*.mm src/*.hpp
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${Stb_INCLUDE_DIR})
-target_link_libraries(
-        ${PROJECT_NAME} PRIVATE
-        glesx::EGL
-        glesx::GLESv2
-        glfw
-        imgui::imgui
-        imgui::imgui_backend_gles3
-        imgui::imgui_backend_glfw
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    glesx::EGL
+    glesx::GLESv2
+    glfw
+    imgui::imgui
+    imgui::imgui_backend_gles3
+    imgui::imgui_backend_glfw
 )
-if (APPLE)
+if(APPLE)
     target_link_libraries(${PROJECT_NAME} PRIVATE "-framework QuartzCore")
-endif ()
+endif()
