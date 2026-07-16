@@ -67,6 +67,8 @@ EGLDisplay initEglDisplay() {
     EGLDisplay display = eglGetPlatformDisplay(EGL_PLATFORM_ANGLE_ANGLE, nullptr, display_attribs);
 #elif defined(__linux__)
     EGLDisplay display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
+#elif defined(__EMSCRIPTEN__)
+    EGLDisplay display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
 #else
 #error "Unsupported platform for EGL display initialization"
 #endif
