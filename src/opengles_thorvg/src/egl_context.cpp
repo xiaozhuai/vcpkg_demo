@@ -164,12 +164,12 @@ EGLSurface createEglSurface(EGLDisplay display, EGLConfig config, GLFWwindow *wi
     objc_call<void, id, id, uint, id>(ns_window, "addObserver:forKeyPath:options:context:", layer,
                                       objc_ns_string("backingScaleFactor"), 0x01, nullptr);
     objc_call<void, id>(view, "setLayer:", layer);
-    auto surface = eglCreateWindowSurface(display, config, layer, nullptr);
+    auto surface = eglCreatePlatformWindowSurface(display, config, layer, nullptr);
     CFRelease(view);
     CFRelease(ns_window);
     return surface;
 #elif defined(_WIN32)
-    return eglCreateWindowSurface(display, config, glfwGetWin32Window(window), nullptr);
+    return eglCreatePlatformWindowSurface(display, config, glfwGetWin32Window(window), nullptr);
 #elif defined(__linux__)
     return eglCreateWindowSurface(display, config, glfwGetX11Window(window), nullptr);
 #elif defined(__EMSCRIPTEN__)
