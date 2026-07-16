@@ -2,6 +2,8 @@
  * Copyright 2022 xiaozhuai
  */
 
+#include <cmath>
+
 #include "MiniFB_cpp.h"
 #include "yoga/YGNode.h"
 #include "yoga/YGNodeLayout.h"
@@ -146,8 +148,8 @@ int main() {
     float scaleX, scaleY;
     mfb_get_monitor_scale(window, &scaleX, &scaleY);
 
-    const int width = static_cast<int>(round(static_cast<float>(windowWidth) * scaleX));
-    const int height = static_cast<int>(round(static_cast<float>(windowHeight) * scaleY));
+    const int width = static_cast<int>(std::round(static_cast<float>(windowWidth) * scaleX));
+    const int height = static_cast<int>(std::round(static_cast<float>(windowHeight) * scaleY));
 
     std::vector<uint8_t> framebuffer(width * height * 4);
     draw_layout(framebuffer.data(), width, height, scaleX);
