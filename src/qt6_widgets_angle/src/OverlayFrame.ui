@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>OverlayFrame</class>
+ <widget class="QFrame" name="overlayPanel">
+  <property name="minimumSize"><size><width>0</width><height>32</height></size></property>
+  <property name="maximumSize"><size><width>16777215</width><height>32</height></size></property>
+  <property name="autoFillBackground"><bool>false</bool></property>
+  <property name="styleSheet">
+   <string notr="true">
+QFrame#overlayPanel { background: transparent; }
+QToolButton { background-color: transparent; border-radius: 6px; }
+QToolButton:hover { background-color: rgba(255, 255, 255, 50); }
+QToolButton:pressed { background-color: rgba(255, 255, 255, 100); }
+QToolButton:focus { background-color: rgba(255, 255, 255, 50); }
+   </string>
+  </property>
+  <property name="frameShape"><enum>QFrame::NoFrame</enum></property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <property name="sizeConstraint"><enum>QLayout::SetNoConstraint</enum></property>
+   <property name="spacing"><number>16</number></property>
+   <property name="leftMargin"><number>12</number></property>
+   <property name="topMargin"><number>2</number></property>
+   <property name="rightMargin"><number>12</number></property>
+   <property name="bottomMargin"><number>2</number></property>
+   <item>
+    <spacer name="leftSpacer">
+     <property name="orientation"><enum>Qt::Horizontal</enum></property>
+     <property name="sizeHint" stdset="0"><size><width>0</width><height>0</height></size></property>
+    </spacer>
+   </item>
+   <item alignment="Qt::AlignVCenter">
+    <widget class="QToolButton" name="previousButton">
+     <property name="minimumSize"><size><width>24</width><height>24</height></size></property>
+     <property name="maximumSize"><size><width>24</width><height>24</height></size></property>
+     <property name="toolTip"><string>Previous</string></property>
+     <property name="accessibleName"><string>Previous</string></property>
+     <property name="iconSize"><size><width>18</width><height>18</height></size></property>
+     <property name="toolButtonStyle"><enum>Qt::ToolButtonIconOnly</enum></property>
+     <property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property>
+    </widget>
+   </item>
+   <item alignment="Qt::AlignVCenter">
+    <widget class="QToolButton" name="playButton">
+     <property name="minimumSize"><size><width>24</width><height>24</height></size></property>
+     <property name="maximumSize"><size><width>24</width><height>24</height></size></property>
+     <property name="toolTip"><string>Play</string></property>
+     <property name="accessibleName"><string>Play</string></property>
+     <property name="iconSize"><size><width>18</width><height>18</height></size></property>
+     <property name="toolButtonStyle"><enum>Qt::ToolButtonIconOnly</enum></property>
+     <property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property>
+    </widget>
+   </item>
+   <item alignment="Qt::AlignVCenter">
+    <widget class="QToolButton" name="pauseButton">
+     <property name="minimumSize"><size><width>24</width><height>24</height></size></property>
+     <property name="maximumSize"><size><width>24</width><height>24</height></size></property>
+     <property name="toolTip"><string>Pause</string></property>
+     <property name="accessibleName"><string>Pause</string></property>
+     <property name="iconSize"><size><width>18</width><height>18</height></size></property>
+     <property name="toolButtonStyle"><enum>Qt::ToolButtonIconOnly</enum></property>
+     <property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property>
+    </widget>
+   </item>
+   <item alignment="Qt::AlignVCenter">
+    <widget class="QToolButton" name="nextButton">
+     <property name="minimumSize"><size><width>24</width><height>24</height></size></property>
+     <property name="maximumSize"><size><width>24</width><height>24</height></size></property>
+     <property name="toolTip"><string>Next</string></property>
+     <property name="accessibleName"><string>Next</string></property>
+     <property name="iconSize"><size><width>18</width><height>18</height></size></property>
+     <property name="toolButtonStyle"><enum>Qt::ToolButtonIconOnly</enum></property>
+     <property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="rightSpacer">
+     <property name="orientation"><enum>Qt::Horizontal</enum></property>
+     <property name="sizeHint" stdset="0"><size><width>0</width><height>0</height></size></property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
