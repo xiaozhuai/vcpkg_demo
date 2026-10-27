@@ -21,14 +21,14 @@ static duk_context *duk_create_custom_heap() {
     return ctx;
 }
 
-static inline std::string read_script(const std::string &name) {
-    std::ifstream file("src/duktape/duktape_compile/lib/" + name);
+static std::string read_script(const std::string &name) {
+    std::ifstream file("src/duktape/duktape_compile/dist/" + name);
     std::stringstream ss;
     ss << file.rdbuf();
     return ss.str();
 }
 
-static inline void duk_eval_script_file(duk_context *ctx, const std::string &name) {
+static void duk_eval_script_file(duk_context *ctx, const std::string &name) {
     std::string script = read_script(name);
     duk_eval_string(ctx, script.c_str());
 }

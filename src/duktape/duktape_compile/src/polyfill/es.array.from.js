@@ -1,4 +1,4 @@
-require('./es.set');
+import './es.set.js';
 
 if (Array.from === undefined) {
     Array.from = function (arr, callbackFn, thisArg) {
