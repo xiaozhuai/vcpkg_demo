@@ -5,15 +5,13 @@ if (Array.from === undefined) {
         let newArr = [];
         let k = [];
         if (globalThis.Set && arr instanceof Set) {
-            arr.forEach(v => {
+            arr.forEach((v) => {
                 k.push(v);
             });
             arr = k;
         }
         for (let i = 0; i < arr.length; i++) {
-            newArr[i] = callbackFn
-                ? callbackFn.call(thisArg, arr[i], i, arr)
-                : arr[i];
+            newArr[i] = callbackFn ? callbackFn.call(thisArg, arr[i], i, arr) : arr[i];
         }
         return newArr;
     };

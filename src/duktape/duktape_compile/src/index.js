@@ -4,13 +4,13 @@ let a = 1;
 let b = 2;
 let c = a + b;
 console.log(`a + b = ${c}`);
-console.log({name: 'xiaozhuai'});
+console.log({ name: 'xiaozhuai' });
 console.log([1, 2, 3]);
-console.assert(1 === 2, '1 !== 2', {aaa: 111});
-let obj1 = {a: 1};
-let obj2 = {b: 2};
+console.assert(1 === 2, '1 !== 2', { aaa: 111 });
+let obj1 = { a: 1 };
+let obj2 = { b: 2 };
 console.log(Object.assign(obj1, obj2));
-console.log({...obj1, ...obj2});
+console.log({ ...obj1, ...obj2 });
 console.error('this is an error message');
 
 /** @var {Object} bridge **/

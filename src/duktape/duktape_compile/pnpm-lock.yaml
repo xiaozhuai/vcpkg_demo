@@ -14,6 +14,9 @@ importers:
       '@babel/preset-env':
         specifier: ^8.0.0
         version: 8.0.7(@babel/core@8.0.9)
+      prettier:
+        specifier: ^3.9.10
+        version: 3.9.10
       rollup:
         specifier: ^4.65.0
         version: 4.65.0
@@ -746,6 +749,11 @@ packages:
 
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
+
+  prettier@3.9.10:
+    resolution: {integrity: sha512-skGHTH1Yb9QvaTC4hWnRTzEYtCpApF0UMBPz+t/0ZPzP8ihefo/btKd+QA7pUE0fEwA1SbS/NmhyEcstdXOIdA==}
+    engines: {node: '>=14'}
+    hasBin: true
 
   regenerate-unicode-properties@10.3.0:
     resolution: {integrity: sha512-9ns8odR8e9q3otKeHj3DE80jZYKg6zVeZKE+zQmRKXFoVUcuiTGeO6iusDhPRoIQQPVPRvH+SfBhrTud4eczuw==}
@@ -1511,6 +1519,8 @@ snapshots:
   obug@3.0.0: {}
 
   picocolors@1.1.1: {}
+
+  prettier@3.9.10: {}
 
   regenerate-unicode-properties@10.3.0:
     dependencies:

@@ -3,7 +3,7 @@ if (globalThis.Set === undefined) {
         constructor(arr) {
             this.items = [];
             if (arr) {
-                arr.forEach(v => {
+                arr.forEach((v) => {
                     this.add(v);
                 });
             }

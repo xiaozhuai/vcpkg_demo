@@ -1,6 +1,6 @@
 import url from 'node:url';
 import path from 'node:path';
-import {transformAsync} from '@babel/core';
+import { transformAsync } from '@babel/core';
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
@@ -30,15 +30,18 @@ export default {
                     targets: '>= 0%',
                     browserslistConfigFile: false,
                     presets: [
-                        ['@babel/preset-env', {
-                            forceAllTransforms: true,
-                            // Let Rollup link ESM and enclose Babel's helpers.
-                            modules: false,
-                            exclude: ['transform-typeof-symbol'],
-                        }],
+                        [
+                            '@babel/preset-env',
+                            {
+                                forceAllTransforms: true,
+                                // Let Rollup link ESM and enclose Babel's helpers.
+                                modules: false,
+                                exclude: ['transform-typeof-symbol'],
+                            },
+                        ],
                     ],
                 });
-                return {code: result.code, map: result.map};
+                return { code: result.code, map: result.map };
             },
         },
     ],
